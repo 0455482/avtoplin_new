@@ -1,0 +1,47 @@
+.order_color { 
+	width: 16px;
+    height: 16px;
+    box-sizing: border-box;
+    background-color: white;
+    padding: 1px;
+    border: 1px solid #555;
+    margin: 0 auto;
+}
+
+.engines_table{
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.engines_table .threetd {
+    width: 28%;
+}
+
+.engines_table td:first-child{
+    width: 20%;
+    min-width: 80px;
+    background-color: #f2f2f2;
+}
+
+.engines_table td:last-child{
+    width: 40%;
+}
+
+.engines_table td input{
+    width: 100%;
+    text-align: center;
+}
+
+.engines_table .nothing {
+    background-color: white !important;
+}
+
+.column_wraper header {
+    background-color: lightgray;
+    width: 100%;
+}
+
+.column_wraper header h4 {
+    padding: 10px;
+}

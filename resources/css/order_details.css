@@ -1,0 +1,209 @@
+.border {
+    border: 1px solid black;
+}
+
+.input_container {
+    margin-bottom: 35px;
+}
+
+.md-button.md-icon-button {
+    margin-left: 0;
+    padding-left: 0;
+    margin-right: 0;
+}
+.md-datepicker-input-container {
+    margin-left: 0;
+}
+.md-datepicker-input-container {
+    min-width: 150px;
+}
+
+.old_order_modal label {
+    color: black;
+}
+
+.border input[type="text"]:disabled, input[type="password"]:disabled, textarea:disabled {
+    color: black;
+}
+
+input[type="text"], input[type="password"], textarea, input[type="number"] {
+    font-size: 17px;
+}
+
+
+
+.order_details_form .md-text {
+    font-size: 17px;
+}
+
+.gray_wrap {
+    background-color: lightgray;
+    padding: 10px;
+}
+.right_form .right_submit {
+    position: static;
+    right: 31%;
+    bottom: 35%;
+}
+
+.left_form .left_submit {
+    position: static;
+    right: 31%;
+    bottom: 35%;
+}
+
+.md-chips .md-chip {
+    cursor: pointer;
+}
+
+.md-dialog-content .md-chips .md-chip-input-container > input { 
+    display: none; 
+}
+
+.md-dialog-content .md-chips:not(.md-readonly) {
+    cursor: default;
+}
+
+.motors_wrap {
+    display: inline-flex;
+    width: 100%;
+    text-align: center;
+}
+
+.motors_wrap .left {
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.motors_wrap .right {
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.selected {
+    visibility: hidden;
+}
+.selected_box {
+    box-shadow: inset 0 0 7px rgba(0, 0, 0, 0.2);
+}
+
+.motors_wrap .checked {
+    margin-top: -33px;
+}
+
+.motors_wrap .inside_pic {
+    width: 80px;
+    height: 80px;
+    margin: auto;
+}
+
+.motors_type_wrap {
+    display: inline-flex;
+    width: 100%;
+    text-align: center;
+}
+
+.motors_type_wrap .left {
+    width: 90px;
+    height: 90px;
+    border: 1px solid black;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.motors_type_wrap .right {
+    width: 90px;
+    height: 90px;
+    border: 1px solid black;
+    margin: 0 auto;
+    cursor: pointer;
+}
+.motors_type_wrap .inside_pic {
+    width: 40px;
+    height: 40px;
+    margin: auto;
+}
+
+.motors_type_wrap .checked {
+    margin-top: -33px;
+}
+
+.subvencija_wrap {
+    display: inline-flex;
+    width: 100%;
+    text-align: center;
+}
+
+.subvencija_wrap .left {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.subvencija_wrap .checked {
+    margin-top: 0px;
+}
+
+.disable_section {
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+.boxed {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0px 1px 5px rgba(0, 0, 0, 0.9);
+}
+
+.offer_table {
+    display: table;
+    border-collapse: collapse;
+    border-spacing: 3px 5px;
+}
+
+.offer_row {
+    display: table-row;
+}
+
+.offer_cell {
+    display: table-cell;
+    padding: 5px;
+    border: 1px solid rgb(218,218,218);
+    min-width: 286px;
+}
+
+.icon { 
+    min-width: 110px;
+    text-align: center;
+}
+
+.form {
+    display: block;
+    padding: 0;
+    margin: 0;
+    background-color: rgb(234,234,234);
+}
+
+.old_order_modal input[type="text"]:disabled, input[type="password"]:disabled, textarea:disabled {
+    opacity: 1;
+    color: black;
+}
+.panel-container {
+    padding: 5px;
+    text-align: center;
+}
+
+.content {
+    padding: 40px;
+}
+
+.label-material-style {
+    opacity: 0.6; 
+    font-size: 11px;
+}

@@ -1,0 +1,102 @@
+/* ==========================================================================*/
+/*  Statistics
+/* ==========================================================================*/
+
+.main_orders_wrap header {    
+    color: #FFF;
+    font-size: 16px;
+    font-weight: normal;
+    position: relative;
+}
+
+.main_orders_wrap .statistics_content {
+    padding: 10px 15px 20px;
+    border-radius: 0 3px 3px 3px;
+    min-height: 0;
+    border: 1px solid #ddd;
+    border-top: none;
+    background-color: white;
+}
+
+#settings_panel {
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+#settings_panel > div {
+    float: left;
+    margin-right: 30px;
+}
+
+.statistics_content {
+    background: #FCFCFC;
+    padding: 10px;
+}
+
+.chart-wrap {
+    padding: 10px 15px 20px 0px;
+}
+
+#settings_panel {
+    height: 120px;
+}
+
+.date-input-container {
+    margin: -10px 0px 0px 20px !important;
+    padding-top: 15px !important;
+}
+
+.date-icon {
+    top: 20px;
+}
+
+.label-material-style {
+    opacity: 0.6; 
+    position: absolute; 
+    top: -30px; 
+    font-size: 11px;
+}
+
+.expenses-container {
+    float:right; 
+    margin-top: 20px; 
+    width: 150px
+}
+
+.date-input {
+    width: 80px !important;
+}
+
+.utm-input-container {
+    margin-left: 20px;
+}
+
+.float-right-button {
+    float: right !important; 
+    padding: 10px;
+}
+
+.content {
+    padding: 40px;
+}
+
+.float-right-button-modal {
+    float: right !important; 
+    padding: 0px;
+    margin: 0px;
+}
+
+.wide {
+    width: 100%;
+}
+
+md-pagination-wrapper {
+    width:auto !important;
+}
+
+@media all and (max-width: 530px) {
+
+}
