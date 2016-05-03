@@ -14,7 +14,7 @@ class Dashboard extends MY_Controller {
 		$this->load->view('common/header');
 		$this->load->view('dashboard');
 		$this->load->view('common/footer');
-		
+
 		if($this->session->userdata["data"]["logged_this_week"]==0){
 			$this->load->model('user_model');
 			$this->user_model->changeUserLoggedThisWeek($this->session->userdata["data"]["user_id"]);
@@ -24,12 +24,12 @@ class Dashboard extends MY_Controller {
 
 	/**
 	 * Init function gets the needed informations for initializing the site.
-	 * 
+	 *
 	 * Gets the box statistics for the dashboard, and the order statuses for init the order table
-	 * 
-	 * @return array Count of the orders with same order status (statistic) 
-	 * @return array All informations about the order statuses 
-	 * 
+	 *
+	 * @return array Count of the orders with same order status (statistic)
+	 * @return array All informations about the order statuses
+	 *
 	 */
 	public function init()
 	{
@@ -47,16 +47,16 @@ class Dashboard extends MY_Controller {
 
 	/**
 	 * Getting count of the filtered orders, for the pagination.
-	 * 
+	 *
 	 * Checking if the filters exists. We form the timestamps to strings.
-	 * 
+	 *
 	 * @param string $query The searched string from the dashboard
-	 * @param timestamp $date_from 
-	 * @param timeptamp $date_from 
+	 * @param timestamp $date_from
+	 * @param timeptamp $date_from
 	 * @param string $status
-	 * 
-	 * @return int Count of the filtered orders 
-	 * 
+	 *
+	 * @return int Count of the filtered orders
+	 *
 	 */
 	public function countFilteredOrders()
 	{
@@ -94,17 +94,17 @@ class Dashboard extends MY_Controller {
 
 	/**
 	 * Getting data of the filtered orders, for the pagination.
-	 * 
+	 *
 	 * Checking if the filters exists. We form the timestamps to date.
-	 * 
+	 *
 	 * @param string $query The searched string from the dashboard
-	 * @param timestamp $date_from 
-	 * @param timeptamp $date_from 
+	 * @param timestamp $date_from
+	 * @param timeptamp $date_from
 	 * @param string $status
 	 * @param int $from
-	 * 
-	 * @return array All informations of the filtered orders 
-	 * 
+	 *
+	 * @return array All informations of the filtered orders
+	 *
 	 */
 	public function getFilteredOrders()
 	{
@@ -245,7 +245,7 @@ class Dashboard extends MY_Controller {
 		$details = $this->invoices_model->getInvoiceDetails($invoice_id);
 
 		echo json_encode($details);
-		exit();	
+		exit();
 	}
 
 }

@@ -1,371 +1,680 @@
-<?php
-    // echo '<pre>';
-    // var_dump($product_filter);
-    // echo '</pre>';
-?>
-<title>Namizje</title>
-<div ng-controller="dashboardCtrl as ctrl" ng-init="initData()" id="content" class="dashboard_content">
-    <uib-alert style="cursor: pointer;" type="{{alert.type}}" ng-click="clickNoty(redirectToStatus)" close="closeAlert()" ng-if="show" dismiss-on-timeout="5000" class="alert">{{alert.msg}} <b>KLIK</b></uib-alert>
-    <!-- Main orders table wrap -->
-    <section class="main_orders_wrap">
-        <header class="clearfix">
-
-            <div class="thumbnails">
-                <ul>
-                    <li ng-repeat="thumbnail in thumbnails" ng-if="(thumbnail.name != 'Arhiv' && thumbnail.name != 'Izbrisano')">
-                        <p class="heading">{{thumbnail.name}}</p>
-                        <p class="number"><b>{{thumbnail.count}}</b></p>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Search panel -->
-            <div id="search_panel" class="search_inputs clearfix">
-            <!-- Date from-to -->
-                <div>
-                    <md-datepicker ng-model="dt" ng-change="showOd()" ng-required="false" md-placeholder="Od"></md-datepicker>
-                    <md-datepicker ng-model="dm" ng-change="showDo()" ng-required="false" md-placeholder="Do"></md-datepicker>
-                </div>
-                <!--SEARCH IN TABLE-->
-                <div class="text_search_wrap">
-                    <form ng-submit="setSearch(quick_text)">
-                    <md-input-container md-no-float class="md-block">
-                        <md-icon style="cursor: pointer;" ng-click="setSearch(quick_text)" md-svg-src="/avtoplin_new/resources/images/ic_search_black_24px.svg"></md-icon>
-                        <input ng-model="quick_text" type="text" placeholder="Iskanje">
-                    </md-input-container>
-                    <input type="submit" style="display: none;" />
-                    </form>
-                </div>
-            </div>
-
-            <!-- Table header wrap -->
-            <div class="dashboard_table_header">
-                <!-- Orders tabs-->
-                <ul id="main_table_tabs" class="tabs_wrap clearfix">
-                    <li ng-repeat="status in statuses" ng-model="tab" ng-class="{active: tab == '{{status.name}}'}" style="border-top-color:{{status.color}}" ng-click="$parent.tab = status.name; $parent.tab_status_id = status.id; $parent.color = status.color; switchTab(status.name);">{{status.name}}</li>
-                </ul>
-
-
-            <md-button ng-disabled="(selectedOrdersCount == 0) ? true : false" class="md-raised" ng-click="showSelectedOrdersModal(selectedOrders)">Izbranih: {{selectedOrdersCount}}</md-button>
-            </div>
-
-        </header>
-
-        <div class="dashboard_content">
-            <!-- Main orders table -->
-            <table id="main_orders_table" class="default_table">
-                <thead id="main_table_head" style="background-color: {{color}}" class="main_table_head">
-                    <tr ng-if="(tab_status_id != 5 && tab_status_id != 6) ? true : false">
-                        <th class="center sort selected left">
-                            <input class="list_check" type="checkbox" ng-model="$parent.checkedAll" ng-click="checkAll()">
-                        </th>
-                        <th class="sort selected left">
-                            <span class="title">LEAD ID</span>
-                        </th>
-                        <th class="sort left">
-                            <span class="title">STRANKA</span>
-                        </th>
-                        <th class="sort left">
-                            <span class="title">TELEFON</span>
-                        </th>
-                        <th class="sort left">
-                            <span class="title">MODEL AVTA</span>
-                        </th>
-                        <th class="sort left">
-                            <span class="title">DATUM VNOSA</span>
-                        </th>
-                        <th class="sort left">
-                            <span class="title">OPOMBE</span>
-                        </th>
-                        <th class="sort left">
-                            <span class="title">PREGLED</span>
-                        </th>
-                    </tr>
-                    <tr ng-if="(tab_status_id == 5 || tab_status_id == 6) ? true : false">
-                        <th class="center sort selected left">
-                            <input class="list_check" type="checkbox" ng-model="$parent.checkedAll" ng-click="checkAll()">
-                        </th>
-                        <th class="sort selected center">
-                            <span class="title">INVOICE ID</span>
-                        </th>
-                        <th class="sort center">
-                            <span class="title">ŠT. NAROČIL</span>
-                        </th>
-                        <th class="sort left">
-                            <span class="title">CENA</span>
-                        </th>
-                        <th class="sort left">
-                            <span class="title">DATUM VNOSA</span>
-                        </th>
-                        <th class="sort left">
-                            <span class="title">PREGLED</span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="main_table_body">
-                    <tr ng-if="(tab_status_id != 5 && tab_status_id != 6) ? true : false" ng-repeat="row in rows track by $index">
-                        <td class="center">
-                            <input class="list_check" type="checkbox" ng-model="row.selected">
-                        </td>
-                        <td class="center">{{row.id}}</td>
-                        <td class="left">{{row.customer}}</td>
-                        <td class="left">{{row.telephone}}</td>
-                        <td class="left">{{row.car_model}}</td>
-                        <td class="center">{{row.date_created | date:'dd/MM/yyyy'}}</td>
-                        <td class="left">{{row.customer_profile}}</td>
-                        <td class="center">
-                            <a href="<?php echo base_url(); ?>index.php/order_details?order_id={{row.id}}" target="_self">
-                                <button type="button" class="glyphicon_btn">
-                                    <span class="glyphicon glyphicon-zoom-in"></span>
-                                </button>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr ng-if="(tab_status_id == 5 || tab_status_id == 6) ? true : false" ng-repeat="row in rows track by $index">
-                        <td class="center">
-                            <input class="list_check" type="checkbox" ng-model="row.selected">
-                        </td>
-                        <td class="center">{{row.invoice_num}}</td>
-                        <td class="center">{{row.num_of_orders}}</td>
-                        <td class="left">{{row.price}}</td>
-                        <td class="left">{{row.date_created | date}}</td>
-                        <td class="center">
-                            <button ng-click="openInvoicesModal(row.id)" type="button" class="glyphicon_btn">
-                                <span class="glyphicon glyphicon-zoom-in"></span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- Pagination control panel -->
-            <div id="pagination_controls_main" class="clearfix pagination_controls_wrap">
-                <!-- Pagination commands -->
-                <ul class="pagination_controls">
-                    <li class="pagination_btn paging_first" ng-click="pagination.firstPage()" title="First">
-                        <span class="glyphicon glyphicon-step-backward"></span>
-                    </li>
-                    <li class="pagination_btn paging_left" ng-click="pagination.prevPage()" title="Prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </li>
-                    <li class="pagination_btn paging_right" ng-click="pagination.nextPage()" title="Next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </li>
-                    <li class="pagination_btn paging_last" ng-click="pagination.lastPage()" title="Last">
-                        <span class="glyphicon glyphicon-step-forward"></span>
-                    </li>
-                </ul>
-                <!-- Pagination counter -->
-                <span class="pagination_counter">
-                    <span>
-                        <span class="from">
-                            {{pagination.start_item}}<!-- First item on page number -->
-                        </span>
-                        <span>-</span>
-                        <span class="to">
-                           {{pagination.numPerPage}}<!-- Last item on page number -->
-                        </span>
-                    </span>
-                    <span>of</span>
-                    <span class="total">
-                        {{pagination.all_data}}
-                        <!-- Total items number goes here -->
-                    </span>
-                </span>
-            </div>
-            <!-- Loading -->
-            <div id="main_loading" ng-show="loading" class="loading_overlay">
-                <div class="loading_fixed_wrap">
-                    <img class="loading_img" src="/avtoplin_new/resources/images/loading_2.gif" />
-                    <span class="loading_text">Loading</span>
-                </div>
-            </div>
+<!-- start: DASHBOARD TITLE -->
+<div class="main-content ng-scope">
+  <div class="wrap-content container fade-in-up ng-scope" id="container">
+    <section id="page-title" class="padding-top-15 padding-bottom-15">
+      <div class="row">
+        <div class="col-sm-7">
+          <h1 class="mainTitle" translate="dashboard.WELCOME" translate-values="{ appName: app.name }">WELCOME TO CLIP-TWO</h1>
+          <span class="mainDescription">overview &amp; stats </span>
         </div>
+        <div class="col-sm-5">
+          <!-- start: MINI STATS WITH SPARKLINE -->
+          <!-- /// controller:  'SparklineCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
+          <ul class="mini-stats pull-right" ng-controller="SparklineCtrl">
+            <li>
+              <div class="sparkline">
+                <span jq-sparkline ng-model="sales" type="bar" height="20px" bar-color="#D43F3A"></span>
+              </div>
+              <div class="values">
+                <strong class="text-dark">18304</strong>
+                <p class="text-small no-margin">
+                  Sales
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="sparkline">
+                <span jq-sparkline ng-model="earnings" type="bar" height="20px" bar-color="#5CB85C"></span>
+              </div>
+              <div class="values">
+                <strong class="text-dark">&#36;3,833</strong>
+                <p class="text-small no-margin">
+                  Earnings
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="sparkline">
+                <span jq-sparkline ng-model="referrals" type="bar" height="20px" bar-color="#46B8DA"></span>
+              </div>
+              <div class="values">
+                <strong class="text-dark">&#36;848</strong>
+                <p class="text-small no-margin">
+                  Referrals
+                </p>
+              </div>
+            </li>
+          </ul>
+          <!-- end: MINI STATS WITH SPARKLINE -->
+        </div>
+      </div>
     </section>
-</div>
-
-<script type="text/ng-template" id="invoicesModal.html">
-  <md-dialog style="max-width: 22%;" aria-label="Invoices" class="old_order_modal" ng-cloak>
-      <md-toolbar style="background-color: #3375BD;">
-        <div class="md-toolbar-tools">
-          <h2>Naročila</h2>
-          <span flex></span>
-          <md-button class="md-icon-button" ng-click="cancel()">
-            <md-icon md-svg-src="/avtoplin_new/resources/images/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
-          </md-button>
-        </div>
-      </md-toolbar>
-      <md-dialog-content>
-        <div class="md-dialog-content">
-            <div class="content_table_wrap clearfix">
-              <table class="content_table default_table">
-                  <thead>
-                      <tr>
-                          <th class="center">Lead ID</th>
-                          <th class="left">Stranka</th>
-                          <th class="left">Model Avta</th>
-                          <th class="left">Datum vnosa</th>
-                          <th class="center">Pregled</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="order in orders">
-                      <td class="center">{{order.id}}</td>
-                      <td class="left">{{order.customer}}</td>
-                      <td class="left">{{order.car_model}}</td>
-                      <td class="left">{{order.date_created | date}}</td>
-                      <td class="center icon">
-                        <a href="<?php echo base_url(); ?>index.php/order_details?order_id={{order.id}}" target="_blank">
-                            <button type="button" class="glyphicon_btn">
-                                <span class="glyphicon glyphicon-zoom-in"></span>
-                            </button>
-                        </a>
-                      </td>
-                    </tr>
-                 </tbody>
-              </table>
+    <!-- end: DASHBOARD TITLE -->
+    <!-- start: FEATURED BOX LINKS -->
+    <div class="container-fluid container-fullw bg-white">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="panel panel-white no-radius text-center">
+            <div class="panel-body">
+              <span class="fa-stack fa-2x"> <i class="fa fa-square fa-stack-2x text-primary"></i> <i class="fa fa-smile-o fa-stack-1x fa-inverse"></i> </span>
+              <h2 class="StepTitle">Manage Users</h2>
+              <p class="text-small">
+                To add users, you need to be signed in as the super user.
+              </p>
+              <p class="links cl-effect-1">
+                <a href>
+                  view more
+                </a>
+              </p>
             </div>
+          </div>
         </div>
-      </md-dialog-content>
-      <md-dialog-actions layout="row">
-        <form method="post" target="_blank" action="<?php echo base_url(); ?>index.php/actions/previewInvoice">
-            <input type="hidden" name="inv_id" value="{{invoice_id}}" />
-            <md-button type="submit" class="md-raised">Poglej</md-button>
-        </form>
-        <md-button ng-click="sendInvoiceEmail(invoice_id)" class="md-raised">Pošlji kot email</md-button>
-        <md-button ng-click="payCheck()" style="background-color: #3375BD;" class="md-raised md-primary">Plačano</md-button>
-      </md-dialog-actions>
-  </md-dialog>
-</script>
-
-<script type="text/ng-template" id="SelectedOrdersModal.html" >
-    <md-dialog aria-label="Izbrana Naročila" ng-cloak style="width: 650px; height: 650px;">
-        <md-toolbar style="background-color: #3375BD;">
-            <div class="md-toolbar-tools">
-                <h2>Izbrana Naročila</h2>
-                <span flex></span>
-                <md-button class="md-icon-button" ng-click="cancel()">
-                    <md-icon md-svg-src="/avtoplin_new/resources/images/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
-                </md-button>
+        <div class="col-sm-4">
+          <div class="panel panel-white no-radius text-center">
+            <div class="panel-body">
+              <span class="fa-stack fa-2x"> <i class="fa fa-square fa-stack-2x text-primary"></i> <i class="fa fa-paperclip fa-stack-1x fa-inverse"></i> </span>
+              <h2 class="StepTitle">Manage Orders</h2>
+              <p class="text-small">
+                The Manage Orders tool provides a view of all your orders.
+              </p>
+              <p class="cl-effect-1">
+                <a href>
+                  view more
+                </a>
+              </p>
             </div>
-        </md-toolbar>
-        <md-dialog-content>
-            <div class="md-dialog-content">
-                <div style="min-height:150px;">
-                    <md-content class="md-padding" layout="column">
-                        <md-chips ng-model="orders"></md-chips>
-                    </md-content>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="panel panel-white no-radius text-center">
+            <div class="panel-body">
+              <span class="fa-stack fa-2x"> <i class="fa fa-square fa-stack-2x text-primary"></i> <i class="fa fa-terminal fa-stack-1x fa-inverse"></i> </span>
+              <h2 class="StepTitle">Manage Database</h2>
+              <p class="text-small">
+                Store, modify, and extract information from your database.
+              </p>
+              <p class="links cl-effect-1">
+                <a href>
+                  view more
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end: FEATURED BOX LINKS -->
+    <!-- start: FIRST SECTION -->
+    <div class="container-fluid container-fullw padding-bottom-10">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-md-7 col-lg-8">
+              <div class="panel panel-white no-radius" id="visits">
+                <div class="panel-heading border-light">
+                  <h4 class="panel-title"> Visits </h4>
+                  <ul class="panel-heading-tabs border-light">
+                    <li>
+                      <div class="pull-right">
+                        <div class="btn-group" uib-dropdown is-open="status.isopen">
+                          <a uib-dropdown-toggle ng-disabled="disabled" class="padding-10">
+                            <i class="ti-more-alt "></i>
+                          </a>
+                          <ul class="dropdown-menu dropdown-light" role="menu">
+                            <li>
+                              <a href="#">
+                                Action
+                              </a>
+                            </li>
+                            <li>
+                              <a href="#">
+                                Another action
+                              </a>
+                            </li>
+                            <li>
+                              <a href="#">
+                                Something else here
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="rate">
+                        <i class="fa fa-caret-up text-primary"></i><span class="value">15</span><span class="percentage">%</span>
+                      </div>
+                    </li>
+                    <li class="panel-tools">
+                      <ct-paneltool tool-refresh="load1"></ct-paneltool>
+                    </li>
+                  </ul>
                 </div>
-
-                <div>
-                    <div ng-switch="statusHeading">
-                        <div ng-switch-when="Spremeni status">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title" href="#" ng-model="collapsed">
-                                        <a href="#" >{{statusHeading}}</a>
-                                    </h4>
-                                </div>
-                                <div>
-                                <ul class="list-group" ng-show="collapsed">
-                                    <li style="list-style: none; text-align: center;" ng-repeat="status in next_statuses">
-                                        <a href="" ng-click="changeStatus(status)" class="list-group-item">{{status.name}}</a>
-                                    </li>
-                                </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div ng-switch-when="Račun">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title" href="#" ng-click="backToStatuses()">
-                                        <a href="#" >{{statusHeading}}</a><i class="glyphicon glyphicon-chevron-left pull-right"></i>
-                                    </h4>
-                                </div>
-                                <div class="panel-container">
-                                    <form name="formRacun" ng-submit="submitInvoice(invoice)">
-                                        <md-input-container md-no-float class="md-block">
-                                            <input ng-model="invoice.invoiceNum" type="text" placeholder="Številka računa" required>
-                                        </md-input-container>
-                                        <md-datepicker ng-model="invoice.date_export" ng-required="true" md-placeholder="Datum izdaje"></md-datepicker>
-                                        <md-datepicker ng-model="invoice.date_done" ng-required="true" md-placeholder="Datum opravljene storitve"></md-datepicker>
-                                        <md-datepicker ng-model="invoice.date_deadline" ng-required="true" md-placeholder="Rok plačila"></md-datepicker>
-                                        <md-button type="submit" class="md-raised" ng-disabled="formRacun.$invalid">Potrdi</md-button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div ng-switch-when="Rezervirano">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title" href="#" ng-click="backToStatuses()">
-                                        <a href="#" >{{statusHeading}}</a><i class="glyphicon glyphicon-chevron-left pull-right"></i>
-                                    </h4>
-                                </div>
-                                <div class="panel-container">
-                                    <form name="formRezervirano" ng-submit="submitDateAndTime(date, time)">
-                                        <div style="display: flex;">
-                                            <md-datepicker style="align-self: center;" ng-model="date" md-placeholder="Datum" required></md-datepicker>
-                                            <uib-timepicker style="margin-left: 20px;" ng-model="time" hour-step="1" minute-step="15" show-meridian="false"></uib-timepicker>
-                                        </div>
-                                        <md-button type="submit" class="md-raised" ng-disabled="formRezervirano.$invalid">Potrdi</md-button>
-                                     </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div ng-switch-when="Izbrisano">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title" href="#" ng-click="backToStatuses()">
-                                        <a href="#" >{{statusHeading}}</a><i class="glyphicon glyphicon-chevron-left pull-right"></i>
-                                    </h4>
-                                </div>
-                                <div class="panel-container">
-                                    <form name="formRezervirano" ng-submit="finalDelete(deleted)">
-                                        <div>
-                                            <md-checkbox ng-model="deleted" aria-label="Checkbox">Dokončno zbriši</md-checkbox>
-                                        </div>
-                                        <md-button type="submit" class="md-raised" ng-disabled="formRezervirano.$invalid">Potrdi</md-button>
-                                     </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div ng-switch-when="Arhiv">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title" href="#" ng-click="backToStatuses()">
-                                        <a href="#" >{{statusHeading}}</a><i class="glyphicon glyphicon-chevron-left pull-right"></i>
-                                    </h4>
-                                </div>
-                                <div class="panel-container">
-                                    <form name="formArhiv" ng-submit="archive(comment)">
-                                        <div>
-                                            <textarea ng-model="comment" wrap="soft" placeholder="Razlog..." style="width:570px;"></textarea>
-                                        </div>
-                                        <md-button type="submit" class="md-raised" ng-disabled="formArhiv.$invalid">Potrdi</md-button>
-                                     </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div ng-switch-default>
-                            <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title" href="#" ng-click="backToStatuses()">
-                                            <a href="#" >{{statusHeading}}</a><i class="glyphicon glyphicon-chevron-left pull-right"></i>
-                                        </h4>
-                                    </div>
-                                    <div class="panel-container">
-                                        <md-button class="md-raised" ng-click="postStatus()">Potrdi</md-button>
-                                    </div>
-                            </div>
-                        </div>
+                <div uib-collapse="visits" ng-init="visits=false" class="panel-wrapper">
+                  <div class="panel-body">
+                    <!-- /// controller:  'VisitsCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
+                    <div ng-controller="VisitsCtrl" class="height-350">
+                      <canvas class="tc-chart" tc-chartjs-line chart-options="options" chart-data="data" chart-legend="chart1" width="100%"></canvas>
+                      <div class="margin-top-20">
+                        <div tc-chartjs-legend chart-legend="chart1" class="inline pull-left"></div>
+                      </div>
                     </div>
+                  </div>
                 </div>
-                <form method="post" target="_blank" action="<?php echo base_url();?>index.php/Actions/exportOrders">
-                  <input ng-repeat="o in orders" type="hidden" name="orders[]" value="{{o}}"/>
-                  <md-button type="submit" class="md-raised" style="width:100%; margin:0 auto;">Izvozi Narocila</md-button>
-                </form>
+              </div>
             </div>
-        </md-dialog-content>
-    </md-dialog>
-</script>
+            <div class="col-md-5 col-lg-4">
+              <div class="panel panel-white no-radius">
+                <div class="panel-heading border-light">
+                  <h4 class="panel-title"> Acquisition </h4>
+                </div>
+                <div class="panel-body">
+                  <h3 class="inline-block no-margin">26</h3> visitors on-line <uib-progressbar value="40" class="progress-xs no-radius" type="success"></uib-progressbar>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <h4 class="no-margin">15</h4>
+                      <uib-progressbar value="80" class="progress-xs no-radius no-margin" type="danger"></uib-progressbar>
+                      Direct
+                    </div>
+                    <div class="col-sm-4">
+                      <h4 class="no-margin">7</h4>
+                      <uib-progressbar value="60" class="progress-xs no-radius no-margin" type="info"></uib-progressbar>
+                      Sites
+                    </div>
+                    <div class="col-sm-4">
+                      <h4 class="no-margin">4</h4>
+                      <uib-progressbar value="40" class="progress-xs no-radius no-margin" type="warning"></uib-progressbar>
+                      Search
+                    </div>
+                  </div>
+                  <div class="row margin-top-30">
+                    <div class="col-xs-4 text-center">
+                      <div class="rate">
+                        <i class="fa fa-caret-up text-green"></i><span class="value">26</span><span class="percentage">%</span>
+                      </div>
+                      Mac OS X
+                    </div>
+                    <div class="col-xs-4 text-center">
+                      <div class="rate">
+                        <i class="fa fa-caret-up text-green"></i><span class="value">62</span><span class="percentage">%</span>
+                      </div>
+                      Windows
+                    </div>
+                    <div class="col-xs-4 text-center">
+                      <div class="rate">
+                        <i class="fa fa-caret-down text-red"></i><span class="value">12</span><span class="percentage">%</span>
+                      </div>
+                      Other OS
+                    </div>
+                  </div>
+                  <div class="margin-top-10">
+                    <!-- /// controller:  'SalesCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
+                    <div ng-controller="SalesCtrl" class="height-180">
+                      <canvas class="tc-chart" tc-chartjs-bar chart-options="options" chart-data="data" chart-legend="chart2"></canvas>
+                      <div tc-chartjs-legend chart-legend="chart2" class="inline pull-left legend-xs"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end: FIRST SECTION -->
+    <!-- start: SECOND SECTION -->
+    <div class="container-fluid container-fullw bg-white">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="panel panel-white no-radius">
+            <div class="panel-body">
+              <div class="partition-light-grey padding-15 text-center margin-bottom-20">
+                <h4 class="no-margin">Monthly Statistics</h4>
+                <span class="text-light">based on the major browsers</span>
+              </div>
+              <v-accordion class="vAccordion--default">
+                <!-- add expanded attribute to open first section -->
+                <v-pane expanded>
+                  <v-pane-header>
+                    This Month
+                  </v-pane-header>
+                  <v-pane-content>
+                    <table class="table margin-bottom-0">
+                      <tbody>
+                        <tr>
+                          <td class="center">1</td>
+                          <td>Google Chrome</td>
+                          <td class="center">4909</td>
+                          <td><i class="fa fa-caret-down text-red"></i></td>
+                        </tr>
+                        <tr>
+                          <td class="center">2</td>
+                          <td>Mozilla Firefox</td>
+                          <td class="center">3857</td>
+                          <td><i class="fa fa-caret-up text-green"></i></td>
+                        </tr>
+                        <tr>
+                          <td class="center">3</td>
+                          <td>Safari</td>
+                          <td class="center">1789</td>
+                          <td><i class="fa fa-caret-up text-green"></i></td>
+                        </tr>
+                        <tr>
+                          <td class="center">4</td>
+                          <td>Internet Explorer</td>
+                          <td class="center">612</td>
+                          <td><i class="fa fa-caret-down text-red"></i></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </v-pane-content>
+                </v-pane>
+                <v-pane>
+                  <v-pane-header>
+                    Last Month
+                  </v-pane-header>
+                  <v-pane-content>
+                    <table class="table margin-bottom-0">
+                      <tbody>
+                        <tr>
+                          <td class="center">1</td>
+                          <td>Google Chrome</td>
+                          <td class="center">5228</td>
+                          <td><i class="fa fa-caret-up text-green"></i></td>
+                        </tr>
+                        <tr>
+                          <td class="center">2</td>
+                          <td>Mozilla Firefox</td>
+                          <td class="center">2853</td>
+                          <td><i class="fa fa-caret-up text-green"></i></td>
+                        </tr>
+                        <tr>
+                          <td class="center">3</td>
+                          <td>Safari</td>
+                          <td class="center">1948</td>
+                          <td><i class="fa fa-caret-up text-green"></i></td>
+                        </tr>
+                        <tr>
+                          <td class="center">4</td>
+                          <td>Internet Explorer</td>
+                          <td class="center">456</td>
+                          <td><i class="fa fa-caret-down text-red"></i></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </v-pane-content>
+                </v-pane>
+              </v-accordion>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="panel panel-white no-radius">
+            <div class="panel-heading border-bottom">
+              <h4 class="panel-title">New Users</h4>
+            </div>
+            <div class="panel-body">
+              <!-- /// controller:  'OnotherCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
+              <div ng-controller="OnotherCtrl">
+                <div class="text-center">
+                  <span class="mini-pie"> <canvas class="tc-chart" tc-chartjs-doughnut chart-options="options" chart-data="data" chart-legend="chart3" width="100"></canvas> <span>{{total}}</span> </span>
+                  <span class="inline text-large no-wrap">Acquisition</span>
+                </div>
+                <div class="margin-top-20 text-center legend-xs">
+                  <div tc-chartjs-legend chart-legend="chart3" class="inline"></div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <div class="clearfix padding-5 space5">
+                <div class="col-xs-4 text-center no-padding">
+                  <div class="border-right border-dark">
+                    <span class="text-bold block text-extra-large">90%</span>
+                    <span class="text-light">Satisfied</span>
+                  </div>
+                </div>
+                <div class="col-xs-4 text-center no-padding">
+                  <div class="border-right border-dark">
+                    <span class="text-bold block text-extra-large">2%</span>
+                    <span class="text-light">Unsatisfied</span>
+                  </div>
+                </div>
+                <div class="col-xs-4 text-center no-padding">
+                  <span class="text-bold block text-extra-large">8%</span>
+                  <span class="text-light">NA</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end: SECOND SECTION -->
+    <!-- start: THIRD SECTION -->
+    <div class="container-fluid container-fullw padding-bottom-10">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="panel panel-white no-radius">
+            <div class="panel-heading border-light">
+              <h4 class="panel-title">Users</h4>
+            </div>
+            <div class="panel-body no-padding">
+              <div class="padding-10">
+                <img width="50" height="50" src="assets/images/avatar-1.jpg" class="img-circle pull-left" alt="">
+                <h4 class="no-margin inline-block padding-5">Peter Clark <span class="block text-small text-left">UI Designer</span></h4>
+                <div class="pull-right padding-15">
+                  <span class="text-small text-bold text-green"><i class="fa fa-dot-circle-o"></i> on-line</span>
+                </div>
+              </div>
+              <div class="clearfix padding-5 space5">
+                <div class="col-xs-4 text-center no-padding">
+                  <div class="border-right border-dark">
+                    <a class="text-dark" href="#">
+                      <i class="fa fa-heart-o text-red"></i> 250
+                    </a>
+                  </div>
+                </div>
+                <div class="col-xs-4 text-center no-padding">
+                  <div class="border-right border-dark">
+                    <a class="text-dark" href="#">
+                      <i class="fa fa-bookmark-o text-green"></i> 20
+                    </a>
+                  </div>
+                </div>
+                <div class="col-xs-4 text-center no-padding">
+                  <a class="text-dark" href="#"><i class="fa fa-comment-o text-azure"></i> 544</a>
+                </div>
+              </div>
+              <uib-tabset class="tabbable no-padding no-margin">
+                <uib-tab heading="Followers" class="padding-top-5 padding-left-5">
+                  <div class="panel-scroll height-200" perfect-scrollbar wheel-propagation="false" suppress-scroll-x="true">
+                    <table class="table no-margin">
+                      <tbody>
+                        <tr>
+                          <td class="center"><img alt="image" class="img-circle" src="assets/images/avatar-1-small.jpg"></td>
+                          <td><span class="text-small block text-light">UI Designer</span><span>Peter Clark</span></td>
+                          <td class="center">
+                            <div class="cl-effect-13">
+                              <a href>
+                                view more
+                              </a>
+                            </div></td>
+                          </tr>
+                          <tr>
+                            <td class="center"><img alt="image" class="img-circle" src="assets/images/avatar-2-small.jpg"></td>
+                            <td><span class="text-small block text-light">Content Designer</span><span>Nicole Bell</span></td>
+                            <td class="center">
+                              <div class="cl-effect-13">
+                                <a href>
+                                  view more
+                                </a>
+                              </div></td>
+                            </tr>
+                            <tr>
+                              <td class="center"><img alt="image" class="img-circle" src="assets/images/avatar-3-small.jpg"></td>
+                              <td><span class="text-small block text-light">Visual Designer</span><span>Steven Thompson</span></td>
+                              <td class="center">
+                                <div class="cl-effect-13">
+                                  <a href>
+                                    view more
+                                  </a>
+                                </div></td>
+                              </tr>
+                              <tr>
+                                <td class="center"><img alt="image" class="img-circle" src="assets/images/avatar-5-small.jpg"></td>
+                                <td><span class="text-small block text-light">Senior Designer</span><span>Kenneth Ross</span></td>
+                                <td class="center">
+                                  <div class="cl-effect-13">
+                                    <a href>
+                                      view more
+                                    </a>
+                                  </div></td>
+                                </tr>
+                                <tr>
+                                  <td class="center"><img alt="image" class="img-circle" src="assets/images/avatar-4-small.jpg"></td>
+                                  <td><span class="text-small block text-light">Web Editor</span><span>Ella Patterson</span></td>
+                                  <td class="center">
+                                    <div class="cl-effect-13">
+                                      <a href>
+                                        view more
+                                      </a>
+                                    </div></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </uib-tab>
+                          <uib-tab heading="Following" class="padding-top-5">
+                            <div class="panel-scroll height-200" perfect-scrollbar wheel-propagation="false" suppress-scroll-x="true">
+                              <table class="table no-margin">
+                                <tbody>
+                                  <tr>
+                                    <td class="center"><img alt="image" class="img-circle" src="assets/images/avatar-3-small.jpg"></td>
+                                    <td><span class="text-small block text-light">Visual Designer</span><span>Steven Thompson</span></td>
+                                    <td class="center">
+                                      <div class="cl-effect-13">
+                                        <a href>
+                                          view more
+                                        </a>
+                                      </div></td>
+                                    </tr>
+                                    <tr>
+                                      <td class="center"><img alt="image" class="img-circle" src="assets/images/avatar-5-small.jpg"></td>
+                                      <td><span class="text-small block text-light">Senior Designer</span><span>Kenneth Ross</span></td>
+                                      <td class="center">
+                                        <div class="cl-effect-13">
+                                          <a href>
+                                            view more
+                                          </a>
+                                        </div></td>
+                                      </tr>
+                                      <tr>
+                                        <td class="center"><img alt="image" class="img-circle" src="assets/images/avatar-4-small.jpg"></td>
+                                        <td><span class="text-small block text-light">Web Editor</span><span>Ella Patterson</span></td>
+                                        <td class="center">
+                                          <div class="cl-effect-13">
+                                            <a href>
+                                              view more
+                                            </a>
+                                          </div></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </uib-tab>
+                              </uib-tabset>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="panel panel-white no-radius">
+                            <div class="panel-heading border-bottom">
+                              <h4 class="panel-title">Specialization</h4>
+                            </div>
+                            <div class="panel-body">
+                              <!-- /// controller:  'LastCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
+                              <div ng-controller="LastCtrl">
+                                <canvas class="tc-chart" tc-chartjs-radar chart-options="options" chart-data="data" chart-legend="chart4"></canvas>
+                                <div class="margin-top-20 padding-bottom-5">
+                                  <div tc-chartjs-legend chart-legend="chart4" class="inline"></div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="panel-footer">
+                              <div class="clearfix padding-5 space5">
+                                <div class="col-xs-4 text-center no-padding">
+                                  <div class="border-right border-dark">
+                                    <span class="text-bold block text-extra-large">90%</span>
+                                    <span class="text-light">Satisfied</span>
+                                  </div>
+                                </div>
+                                <div class="col-xs-4 text-center no-padding">
+                                  <div class="border-right border-dark">
+                                    <span class="text-bold block text-extra-large">2%</span>
+                                    <span class="text-light">Unsatisfied</span>
+                                  </div>
+                                </div>
+                                <div class="col-xs-4 text-center no-padding">
+                                  <span class="text-bold block text-extra-large">8%</span>
+                                  <span class="text-light">NA</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end: THIRD SECTION -->
+                    <!-- start: FOURTH SECTION -->
+                    <div class="container-fluid container-fullw bg-white">
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="row">
+                            <!-- /// controller:  'SparklineCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
+                            <div ng-controller="SparklineCtrl">
+                              <div class="col-md-12">
+                                <div class="panel panel-white no-radius">
+                                  <div class="panel-body padding-20 text-center">
+                                    <div class="space10">
+                                      <h5 class="text-dark no-margin">Today</h5>
+                                      <h2 class="no-margin"><small>$</small>1,450</h2>
+                                      <span class="badge badge-success margin-top-10">253 Sales</span>
+                                    </div>
+                                    <div class="sparkline space10">
+                                      <span jq-sparkline ng-model="sales" type="line" width="80%" height="47px" line-color="#8e8e93" highlight-line-color="#c2c2c5" highlight-spot-color="#CE4641" max-spot-color="#5CB85C" min-spot-color="#D9534F" spot-radius="4" fill-color="transparent" resize="true"></span>
+                                    </div>
+                                    <span class="text-white-transparent"><i class="fa fa-clock-o"></i> 1 hour ago</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="panel panel-white no-radius">
+                                  <div class="panel-body padding-20 text-center">
+                                    <div class="space10">
+                                      <h5 class="text-dark no-margin">Today</h5>
+                                      <h2 class="no-margin"><small>$</small>1,450</h2>
+                                      <span class="badge badge-danger margin-top-10">253 Sales</span>
+                                    </div>
+                                    <div class="sparkline space10">
+                                      <span jq-sparkline ng-model="referrals" type="line" width="80%" height="47px" line-color="#8e8e93" highlight-line-color="#c2c2c5" highlight-spot-color="#CE4641" max-spot-color="#5CB85C" min-spot-color="#D9534F" spot-radius="4" fill-color="transparent" resize="true"></span>
+                                    </div>
+                                    <span class="text-white-transparent"><i class="fa fa-clock-o"></i> 1 hour ago</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <div class="panel panel-white no-radius">
+                            <div class="panel-heading border-bottom">
+                              <h4 class="panel-title">Activities</h4>
+                            </div>
+                            <div class="panel-body">
+                              <ul class="timeline-xs margin-top-15 margin-bottom-15">
+                                <li class="timeline-item success">
+                                  <div class="margin-left-15">
+                                    <div class="text-muted text-small">
+                                      2 minutes ago
+                                    </div>
+                                    <p>
+                                      <a class="text-info" href>
+                                        Steven
+                                      </a>
+                                      has completed his account.
+                                    </p>
+                                  </div>
+                                </li>
+                                <li class="timeline-item">
+                                  <div class="margin-left-15">
+                                    <div class="text-muted text-small">
+                                      12:30
+                                    </div>
+                                    <p>
+                                      Staff Meeting
+                                    </p>
+                                  </div>
+                                </li>
+                                <li class="timeline-item danger">
+                                  <div class="margin-left-15">
+                                    <div class="text-muted text-small">
+                                      11:11
+                                    </div>
+                                    <p>
+                                      Completed new layout.
+                                    </p>
+                                  </div>
+                                </li>
+                                <li class="timeline-item info">
+                                  <div class="margin-left-15">
+                                    <div class="text-muted text-small">
+                                      Thu, 12 Jun
+                                    </div>
+                                    <p>
+                                      Contacted
+                                      <a class="text-info" href>
+                                        Microsoft
+                                      </a>
+                                      for license upgrades.
+                                    </p>
+                                  </div>
+                                </li>
+                                <li class="timeline-item">
+                                  <div class="margin-left-15">
+                                    <div class="text-muted text-small">
+                                      Tue, 10 Jun
+                                    </div>
+                                    <p>
+                                      Started development new site
+                                    </p>
+                                  </div>
+                                </li>
+                                <li class="timeline-item">
+                                  <div class="margin-left-15">
+                                    <div class="text-muted text-small">
+                                      Sun, 11 Apr
+                                    </div>
+                                    <p>
+                                      Lunch with
+                                      <a class="text-info" href>
+                                        Nicole
+                                      </a>
+                                      .
+                                    </p>
+                                  </div>
+                                </li>
+                                <li class="timeline-item warning">
+                                  <div class="margin-left-15">
+                                    <div class="text-muted text-small">
+                                      Wed, 25 Mar
+                                    </div>
+                                    <p>
+                                      server Maintenance.
+                                    </p>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                          <!-- /// controller:  'ChatCtrl' -  localtion: assets/js/controllers/chatCtrl.js /// -->
+                          <div ng-controller="ChatCtrl">
+                            <div class="panel panel-white no-radius">
+                              <div class="panel-heading border-bottom">
+                                <h4 class="panel-title">Chat</h4>
+                              </div>
+                              <div class="panel-body no-padding">
+                                <div class="panel-scroll height-330" id="chatBox" perfect-scrollbar wheel-propagation="false" suppress-scroll-x="true">
+                                  <clip-chat messages="chat" id-self="selfIdUser" id-other="otherIdUser"></clip-chat>
+                                </div>
+                              </div>
+                              <chat-submit submit-function="sendMessage" ng-model="chatMessage" scroll-element="#chatBox"></chat-submit>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- end: FOURTH SECTION -->

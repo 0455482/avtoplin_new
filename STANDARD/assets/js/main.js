@@ -1,4 +1,4 @@
-var app = angular.module('clipApp', ['clip-two']);
+var app = angular.module('avtoplinApp', ['avtoplin_app']);
 app.run(['$rootScope', '$state', '$stateParams',
 function ($rootScope, $state, $stateParams) {
 
@@ -12,7 +12,7 @@ function ($rootScope, $state, $stateParams) {
     // GLOBAL APP SCOPE
     // set below basic information
     $rootScope.app = {
-        name: 'Clip-Two', // name of your project
+        name: 'avtoplin_app', // name of your project
         author: 'ClipTheme', // author's name or company name
         description: 'Angular Bootstrap Admin Template', // brief description
         version: '2.0', // current version

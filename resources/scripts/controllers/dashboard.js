@@ -12,7 +12,7 @@ app.run(function($rootScope, notification) {
     }
 })
 
-app.controller('dashboardCtrl', function ($scope, $mdDialog, $http, $location, $uibModal, $log, GetDataService, updateURL, parseGetParams, getIndexForStatus, $rootScope) {
+app.controller('dashboardCtrl', function ($scope, $http, $location, $uibModal, $log, GetDataService, updateURL, parseGetParams, getIndexForStatus, $rootScope) {
     //defaults on init
     $scope.tab = 'Neobdelano';
     $scope.statuses = '';

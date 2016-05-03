@@ -29,6 +29,7 @@ function service_array($js) {
 }
 
 function load_scripts($view = '', $script_type = 'js') {
+  console.log(1);
     if ($view == '') {
         return false;
     }

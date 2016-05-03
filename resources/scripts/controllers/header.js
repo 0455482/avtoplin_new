@@ -1,4 +1,4 @@
-app.controller('navigationCtrl', function ($scope, $mdDialog, parseGetPage, $rootScope, $routeParams, $location, $http) { 
+app.controller('navigationCtrl', function ($scope, parseGetPage, $rootScope, $location, $http) { 
 
     $scope.getCurTabSelected = function() {
          $scope.tab_selected = parseGetPage.parse();
@@ -12,7 +12,7 @@ app.controller('navigationCtrl', function ($scope, $mdDialog, parseGetPage, $roo
     }
 });
 
-app.controller('logedModalInstanceCtrl', function ($scope, $mdDialog) { 
+app.controller('logedModalInstanceCtrl', function ($scope, $mdDialog) {
     $scope.cancel = function() {
         $mdDialog.cancel();
     };

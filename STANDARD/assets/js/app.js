@@ -1,8 +1,8 @@
-/** 
+/**
   * declare 'clip-two' module with dependencies
 */
 'use strict';
-angular.module("clip-two", [
+var app = angular.module("avtoplin_app", [
 	'ngAnimate',
 	'ngCookies',
 	'ngStorage',
@@ -15,4 +15,6 @@ angular.module("clip-two", [
 	'ncy-angular-breadcrumb',
 	'duScroll',
 	'pascalprecht.translate',
-]);
+]).config(function($locationProvider) {
+		$locationProvider.html5Mode(true);
+});

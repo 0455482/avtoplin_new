@@ -1,5 +1,5 @@
 'use strict';
-/** 
+/**
   * controllers used for the dashboard
 */
 app.controller('SparklineCtrl', ["$scope", function ($scope) {
