@@ -30,7 +30,7 @@
                 <div class="text_search_wrap">
                     <form ng-submit="setSearch(quick_text)">
                     <md-input-container md-no-float class="md-block">
-                        <md-icon style="cursor: pointer;" ng-click="setSearch(quick_text)" md-svg-src="/avtoplin/resources/images/ic_search_black_24px.svg"></md-icon>
+                        <md-icon style="cursor: pointer;" ng-click="setSearch(quick_text)" md-svg-src="/avtoplin_new/resources/images/ic_search_black_24px.svg"></md-icon>
                         <input ng-model="quick_text" type="text" placeholder="Iskanje">
                     </md-input-container>
                     <input type="submit" style="display: none;" />
@@ -176,7 +176,7 @@
             <!-- Loading -->
             <div id="main_loading" ng-show="loading" class="loading_overlay">
                 <div class="loading_fixed_wrap">
-                    <img class="loading_img" src="/avtoplin/resources/images/loading_2.gif" />
+                    <img class="loading_img" src="/avtoplin_new/resources/images/loading_2.gif" />
                     <span class="loading_text">Loading</span>
                 </div>
             </div>
@@ -191,7 +191,7 @@
           <h2>Naročila</h2>
           <span flex></span>
           <md-button class="md-icon-button" ng-click="cancel()">
-            <md-icon md-svg-src="/avtoplin/resources/images/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
+            <md-icon md-svg-src="/avtoplin_new/resources/images/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
           </md-button>
         </div>
       </md-toolbar>
@@ -245,7 +245,7 @@
                 <h2>Izbrana Naročila</h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="cancel()">
-                    <md-icon md-svg-src="/avtoplin/resources/images/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
+                    <md-icon md-svg-src="/avtoplin_new/resources/images/ic_clear_white_24px.svg" aria-label="Close dialog"></md-icon>
                 </md-button>
             </div>
         </md-toolbar>
