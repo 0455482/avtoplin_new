@@ -15,6 +15,18 @@
 	<meta name="HandheldFriendly" content="true" />
 	<meta name="apple-touch-fullscreen" content="yes" />
 	<title data-ng-bind="pageTitle()">Clip-Two - Angular Bootstrap Admin Template</title>
+
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/classic.css">
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/classic.date.css">
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/classic.time.css">
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/toaster.css">
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/angular-growl.min.css">
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/colopicker.css">
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/select.css">
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/select2.css">
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/selectize.default.css">
+	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/ng-animation.css">
+
 	<!-- Google fonts -->
 	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
 	<!-- Bootstrap -->
@@ -32,22 +44,16 @@
 	<link rel="stylesheet" href="../STANDARD/assets/css/plugins.css">
 	<!-- Clip-Two Theme -->
 	<link rel="stylesheet" href="../STANDARD/assets/css/themes/theme-1.css" />
-
-	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/classic.css">
-	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/classic.date.css">
-	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/classic.time.css">
-	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/toaster.css">
-	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/angular-growl.min.css">
-	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/colopicker.css">
-	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/select.css">
-	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/select2.css">
-	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/selectize.default.css">
-	<link type="text/css" rel="stylesheet" href="<?php echo base_url(); ?>resources/libs/css/ng-animation.css">
+	<link rel="stylesheet" href="../bower_components/angular-ui-select/dist/select.min.css">
+	<link rel="stylesheet" href="../bower_components/select2/dist/css/select2.min.css">
+	<link rel="stylesheet" href="../bower_components/selectize/dist/css/selectize.bootstrap3.css">
+	<link rel="stylesheet" href="../bower_components/select2-bootstrap-css/select2-bootstrap.min.css">
+	<link rel="stylesheet" href="../bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css">
 </head>
 
 
 <!-- start: SEARCH FORM -->
-<div ng-class="{'app-mobile' : app.isMobile, 'app-navbar-fixed' : app.layout.isNavbarFixed, 'app-sidebar-fixed' : app.layout.isSidebarFixed, 'app-sidebar-closed':app.layout.isSidebarClosed, 'app-footer-fixed':app.layout.isFooterFixed}">
+<div ng-class="{'app-mobile' : app.isMobile, 'app-navbar-fixed' : app.layout.isNavbarFixed, 'app-sidebar-fixed' : app.layout.isSidebarFixed, 'app-sidebar-closed':app.layout.isSidebarClosed, 'app-footer-fixed':app.layout.isFooterFixed}" ng-controller="headerCtrl">
 	<div class="app-content ng-scope">
 		<header class="navbar navbar-default navbar-static-top hidden-print ng-scope">
 			<!-- start: TOP NAVBAR -->
@@ -68,10 +74,10 @@
 					<!-- end: MESSAGES DROPDOWN -->
 					<!-- start: ACTIVITIES DROPDOWN -->
 					<li class="dropdown" uib-dropdown on-toggle="toggled(open)">
-						<a href class="dropdown-toggle" uib-dropdown-toggle> <i class="ti-check-box"></i> <span translate="topbar.activities.MAIN">ACTIVITIES</span> </a>
+						<a href class="dropdown-toggle" uib-dropdown-toggle> <i class="ti-check-box"></i> <span>ACTIVITIES</span> </a>
 						<ul class="dropdown-menu dropdown-light dropdown-messages dropdown-large">
 							<li>
-								<span class="dropdown-header" translate="topbar.activities.HEADER"> You have new notifications</span>
+								<span class="dropdown-header"> You have new notifications</span>
 							</li>
 							<li>
 								<div class="drop-down-wrapper ps-container">
@@ -82,56 +88,35 @@
 								</div>
 							</li>
 							<li class="view-all">
-								<a href="#" translate="topbar.activities.SEEALL"> See All </a>
+								<a href="#"> See All </a>
 							</li>
 						</ul>
 					</li>
 					<!-- end: ACTIVITIES DROPDOWN -->
-					<!-- start: LANGUAGE SWITCHER -->
-					<li class="dropdown" uib-dropdown on-toggle="toggled(open)">
-						<a href class="dropdown-toggle" uib-dropdown-toggle> <i class="ti-world"></i> {{language.selected}} </a>
-						<ul role="menu" class="dropdown-menu dropdown-light fadeInUpShort">
-							<li ng-repeat="(localeId, langName) in language.available">
-								<a ng-click="language.set(localeId, $event)" href="#" class="menu-toggler"> {{langName}} </a>
-							</li>
-						</ul>
-					</li>
-					<!-- start: LANGUAGE SWITCHER -->
 					<!-- start: USER OPTIONS DROPDOWN -->
 					<li class="dropdown current-user" uib-dropdown on-toggle="toggled(open)">
 						<a href class="dropdown-toggle" uib-dropdown-toggle> <img src="../STANDARD/assets/images/avatar-1.jpg" alt="{{user.name}}"> <span class="username">{{user.name}} <i class="ti-angle-down"></i></i></span> </a>
 						<ul class="dropdown-menu dropdown-dark">
 							<li>
-								<a ui-sref="app.pages.user" translate="topbar.user.PROFILE"> My Profile </a>
+								<a ui-sref="app.pages.user"> My Profile </a>
 							</li>
 							<li>
-								<a ui-sref="app.pages.calendar" translate="topbar.user.CALENDAR"> My Calendar </a>
+								<a ui-sref="app.pages.calendar"> My Calendar </a>
 							</li>
 							<li>
-								<a ui-sref="app.pages.messages" translate="topbar.user.MESSAGES"> My Messages (3) </a>
+								<a ui-sref="app.pages.messages"> My Messages (3) </a>
 							</li>
 							<li>
-								<a ui-sref="login.lockscreen" translate="topbar.user.LOCKSCREEN"> Lock Screen </a>
+								<a ui-sref="login.lockscreen"> Lock Screen </a>
 							</li>
 							<li>
-								<a ui-sref="login.signin" translate="topbar.user.LOGOUT"> Log Out </a>
+								<a ui-sref="login.signin"> Log Out </a>
 							</li>
 						</ul>
 					</li>
 					<!-- end: USER OPTIONS DROPDOWN -->
 				</ul>
-				<!-- start: MENU TOGGLER FOR MOBILE DEVICES -->
-				<div class="close-handle visible-xs-block menu-toggler" ng-click="navbarCollapsed = true">
-					<div class="arrow-left"></div>
-					<div class="arrow-right"></div>
-				</div>
-				<!-- end: MENU TOGGLER FOR MOBILE DEVICES -->
 			</div>
-			<a class="sidebar-mobile-toggler dropdown-off-sidebar hidden-md hidden-lg" ng-click="toggle('off-sidebar')"> &nbsp; </a>
-			<a class="dropdown-off-sidebar hidden-sm hidden-xs" ng-click="toggle('off-sidebar')"> &nbsp; </a>
-			<!-- end: NAVBAR COLLAPSE -->
-			<!-- start: TOP NAVBAR -->
-
 		</header>
 	</div>
 	<div class="sidebar app-aside hidden-print ng-scope" id="sidebar" toggleable parent-active-class="app-slide-off">
@@ -146,7 +131,7 @@
 							<i class="ti-close"></i>
 						</a>
 						<div class="form-group">
-							<input type="text" class="form-control" placeholder="{{ 'sidebar.search.PLACEHOLDER' | translate }}">
+							<input type="text" class="form-control" placeholder="Search...">
 							<button class="btn search-button" type="submit">
 								<i class="ti-search"></i>
 							</button>
@@ -171,23 +156,45 @@
 							</div>
 						</a>
 					</li>
-					<li ui-sref-active="active">
-						<a ui-sref="app.dashboard">
+					<li ng-class="{'active open': settingsActive}">
+						<a ng-click="settingsActive = !settingsActive">
 							<div class="item-content">
 								<div class="item-media">
-									<i class="ti-home"></i>
+									<i class="ti-settings"></i>
 								</div>
 								<div class="item-inner">
-									<span class="title"> Nastavitve </span>
+									<span class="title"> Nastavitve </span><i class="icon-arrow"></i>
 								</div>
 							</div>
 						</a>
-					</li>
+					<ul class="sub-menu">
+						<li ui-sref-active="active">
+							<a ng-click="usersActive()">
+								<span class="title"> Uporabniki </span>
+							</a>
+						</li>
+						<li ui-sref-active="active">
+							<a ng-click="statusesActive()">
+								<span class="title"> Statusi </span>
+							</a>
+						</li>
+						<li ui-sref-active="active">
+							<a ng-click="smsActive()">
+								<span class="title"> SMS </span>
+							</a>
+						</li>
+						<li ui-sref-active="active">
+							<a ng-click="offerActive()">
+								<span class="title"> Ponudba </span>
+							</a>
+						</li>
+					</ul>
+				</li>
 					<li ui-sref-active="active">
 						<a ui-sref="app.dashboard">
 							<div class="item-content">
 								<div class="item-media">
-									<i class="ti-home"></i>
+									<i class="ti-bar-chart"></i>
 								</div>
 								<div class="item-inner">
 									<span class="title"> Statistika </span>
@@ -196,49 +203,9 @@
 						</a>
 					</li>
 				</ul>
-				<!-- end: MAIN NAVIGATION MENU -->
-				<!-- start: CORE FEATURES -->
-				<div class="navbar-title">
-					<span translate="sidebar.heading.FEATURES">Core Features</span>
-				</div>
-				<ul class="folders">
-					<li>
-						<a ui-sref="app.pages.calendar">
-							<div class="item-content">
-								<div class="item-media">
-									<span class="fa-stack"> <i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-terminal fa-stack-1x fa-inverse"></i> </span>
-								</div>
-								<div class="item-inner">
-									<span class="title" translate="sidebar.nav.pages.CALENDAR"> Calendar </span>
-								</div>
-							</div>
-						</a>
-					</li>
-					<li>
-						<a ui-sref="app.pages.messages">
-							<div class="item-content">
-								<div class="item-media">
-									<span class="fa-stack"> <i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-folder-open-o fa-stack-1x fa-inverse"></i> </span>
-								</div>
-								<div class="item-inner">
-									<span class="title" translate="sidebar.nav.pages.MESSAGES"> Messages </span>
-								</div>
-							</div>
-						</a>
-					</li>
-				</ul>
-				<!-- end: CORE FEATURES -->
-				<!-- start: DOCUMENTATION BUTTON -->
-				<div class="wrapper">
-					<a ui-sref="app.documentation" class="button-o">
-						<i class="ti-help"></i>
-						<span translate="sidebar.heading.DOCUMENTATION">Documentation</span>
-					</a>
-				</div>
 			</nav>
 		</div>
 	</div>
-</div>
 <!-- end: DOCUMENTATION BUTTON -->
 
 
@@ -254,24 +221,10 @@ var loged_this_week = <?php echo $this->session->userdata["data"]["logged_this_w
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/angular.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.js"></script>
-	<script src="<?php echo base_url(); ?>bower_components/angular-cookies/angular-cookies.min.js"></script>
-	<script src="<?php echo base_url(); ?>bower_components/ngstorage/ngStorage.min.js"></script>
-	<script src="<?php echo base_url(); ?>bower_components/angular-touch/angular-touch.min.js"></script>
-	<script src="<?php echo base_url(); ?>bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-	<script src="<?php echo base_url(); ?>bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
-	<script src="<?php echo base_url(); ?>bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
-	<script src="<?php echo base_url(); ?>bower_components/angular-breadcrumb/dist/angular-breadcrumb.min.js"></script>
-	<script src="<?php echo base_url(); ?>bower_components/angular-scroll/angular-scroll.min.js"></script>
-	<script src="<?php echo base_url(); ?>bower_components/angular-translate/angular-translate.min.js"></script>
-	<script src="<?php echo base_url(); ?>bower_components/angular-translate-loader-url/angular-translate-loader-url.min.js"></script>
-	<script src="<?php echo base_url(); ?>bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
-	<script src="<?php echo base_url(); ?>bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
-	<script src="<?php echo base_url(); ?>bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/angular-route.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/angular-material.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/angular-animate.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/angular-aria.min.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/ui-bootstrap-tpls-1.1.2.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/angular-growl.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/ng-pickadate.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/picker.js"></script>
@@ -286,7 +239,26 @@ var loged_this_week = <?php echo $this->session->userdata["data"]["logged_this_w
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/app.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/data.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/directive.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/select.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/controllers/header.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/angular-cookies/angular-cookies.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/ngstorage/ngStorage.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/angular-touch/angular-touch.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/angular-breadcrumb/dist/angular-breadcrumb.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/angular-scroll/angular-scroll.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/angular-translate/angular-translate.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/angular-translate-loader-url/angular-translate-loader-url.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/angular-ui-select/dist/select.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components//angular-ui-utils/mask.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/angular-elastic/elastic.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
 
 	<?php load_scripts($this->router->class, 'service'); ?>
 	<?php load_scripts($this->router->class, 'js');?>
