@@ -23,6 +23,7 @@
 */
 'use strict';
 var app = angular.module("avtoplin_app", [
+	'ngRoute',
 	'ngAnimate',
 	'ngCookies',
 	'ngStorage',

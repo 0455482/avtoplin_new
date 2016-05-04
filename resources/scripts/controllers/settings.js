@@ -65,6 +65,14 @@ app.controller('settingsCtrl', function ($scope, $log, updateURL, parseGetParams
                         // $rootScope.showAlert('badRequest');
                     }
                 });
+                $scope.loading = true;
+                GetDataService.get('Settings/init').then(function(result) {
+                    if (result.data.user_type == "admin")
+                        $scope.user_type = true;
+                    else
+                        $scope.user_type = false;
+                    $scope.loading = false;
+                });
                 break;
             case 1:
                 $scope.loading = true;

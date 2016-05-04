@@ -145,7 +145,7 @@
 				</div>
 				<ul class="main-navigation-menu">
 					<li ui-sref-active="active">
-						<a ui-sref="app.dashboard">
+						<a href="<?php echo base_url(); ?>index.php/dashboard" target="_self" ng-click="dashboard()">
 							<div class="item-content">
 								<div class="item-media">
 									<i class="ti-home"></i>
@@ -157,7 +157,7 @@
 						</a>
 					</li>
 					<li ng-class="{'active open': settingsActive}">
-						<a ng-click="settingsActive = !settingsActive">
+						<a href="<?php echo base_url(); ?>index.php/settings" target="_self" ng-click="settings()">
 							<div class="item-content">
 								<div class="item-media">
 									<i class="ti-settings"></i>
@@ -191,7 +191,7 @@
 					</ul>
 				</li>
 					<li ui-sref-active="active">
-						<a ui-sref="app.dashboard">
+						<a href="<?php echo base_url(); ?>index.php/statistics" ng-click="statistics()">
 							<div class="item-content">
 								<div class="item-media">
 									<i class="ti-bar-chart"></i>

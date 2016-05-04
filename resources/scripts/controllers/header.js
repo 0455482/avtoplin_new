@@ -18,8 +18,27 @@ app.controller('logedModalInstanceCtrl', function ($scope, $mdDialog) {
     };
 });
 
-app.controller('headerCtrl', function ($scope, $rootScope) {
-    $scope.settingsActive = false;
+app.controller('headerCtrl', function ($scope, $rootScope, $location, $cookies, $route) {
+    $scope.settingsActive = $cookies.get('settingsActive');
+    if ($scope.settingsActive == "false")
+        $scope.settingsActive = false;
+    else
+        $scope.settingsActive = true;
+
+    $scope.dashboard = function() {
+        $scope.settingsActive = false;
+        $cookies.put('settingsActive', $scope.settingsActive);
+    }
+
+    $scope.settings = function() {
+        $scope.settingsActive = !$scope.settingsActive;
+        $cookies.put('settingsActive', $scope.settingsActive);
+    }
+
+    $scope.statistics = function() {
+        $scope.settingsActive = false;
+        $cookies.put('settingsActive', $scope.settingsActive);
+    }
 
     $scope.usersActive = function() {
         $rootScope.settingsElement = 0;
