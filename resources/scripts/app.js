@@ -32,6 +32,7 @@ var app = angular.module("avtoplin_app", [
 	'ui.bootstrap',
 	'oc.lazyLoad',
 	'cfp.loadingBar',
+	'colorpicker.module',
 	'ncy-angular-breadcrumb',
 	'duScroll',
 	'pascalprecht.translate',

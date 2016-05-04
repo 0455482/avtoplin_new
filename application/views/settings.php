@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h4 class="over-title margin-bottom-15">Uporabniki
-                                <button type="button" style="float:right" class="btn btn-wide btn-primary">Dodaj uporabik</button>
+                                <button type="button" style="float:right" class="btn btn-wide btn-primary" ng-disabled="!user_type" ng-click="showCreateModal()">Dodaj uporabik</button>
                             </h4>
                             <table class="table table-hover" id="sample-table-1">
                                 <thead>
@@ -26,7 +26,7 @@
                                         <th class="hidden-xs">Tip</th>
                                         <th class="hidden-xs">Active / Inactive</th>
                                         <th class="hidden-xs">Datum ustvarjanja</th>
-                                        <th></th>
+                                        <th ng-show="user_type"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -36,7 +36,7 @@
                                         <td>{{user.type}}</td>
                                         <td>{{(user.active == 1) ? 'Active' : 'Inactive'}}</td>
                                         <td class="hidden-xs">{{user.date_created}}</td>
-                                        <td class="center">
+                                        <td class="center" ng-show="user_type" ng-click="showAdvanced(user)">
                                             <div class="visible-md visible-lg hidden-sm hidden-xs">
                                                 <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Uredi"><i class="fa fa-pencil"></i></a>
                                             </div>
@@ -72,9 +72,9 @@
                                                 <span></span>
                                             </div>
                                         </td>
-                                        <td class="center">
+                                        <td class="center" ng-click="showColorsModal(status)">
                                             <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                                <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Uredi"><i class="fa fa-pencil"></i></a>
+                                                <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Spremeni barvo"><i class="fa fa-pencil"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -347,6 +347,68 @@
                     <option value="0" data-class="fa fa-circle-o" ng-selected="sms.active == 0">Inactive</option>
                 </select>
             </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">Shrani</button>
+        <button class="btn btn-primary btn-o" ng-click="cancel()">Prekliči</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="colorModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Izberi barvo</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"> <i class="fa fa-eyedropper"></i> </span>
+                <input colorpicker type="text" class="form-control" placeholder="Barva" ng-model="color">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">Shrani</button>
+        <button class="btn btn-primary btn-o" ng-click="cancel()">Prekliči</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="createUserModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">{{title}}</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"> <i class="fa fa-user"></i> </span>
+                <input type="text" class="form-control" placeholder="Ime" ng-model="user.username">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"> <i class="fa fa-unlock-alt"></i> </span>
+                <input type="password" class="form-control" placeholder="Geslo" ng-model="user.password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="form-field-select-1">
+                Admin / Regular
+            </label>
+            <select class="cs-select cs-skin-slide" ng-model="user.type">
+                <option value=""></option>
+                <option value="admin" data-class="fa fa-user" ng-selected="user.type == 'admin'">Admin</option>
+                <option value="regular" data-class="fa fa-users" ng-selected="user.type == 'regular'">Regular</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="form-field-select-1">
+                Active / Inactive
+            </label>
+            <select class="cs-select cs-skin-slide" ng-model="user.active">
+                <option value=""></option>
+                <option value="1" data-class="fa fa-circle" ng-selected="user.active == 1">Active</option>
+                <option value="0" data-class="fa fa-circle-o" ng-selected="user.active == 0">Inactive</option>
+            </select>
+        </div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="ok()">Shrani</button>
