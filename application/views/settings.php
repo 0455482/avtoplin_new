@@ -1,4 +1,3 @@
-<!-- start: DASHBOARD TITLE -->
 <div class="main-content ng-scope" ng-controller="settingsCtrl as settings" ng-init="initData()">
     <div class="wrap-content container fade-in-up ng-scope" id="container">
         <section id="page-title" class="padding-top-15 padding-bottom-15">
@@ -225,8 +224,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- </div> -->
-                            <!-- <div class="row"> -->
                             <div class="col-sm-6">
                                 <div class="panel panel-white no-radius">
                                     <div class="panel-heading border-bottom">
