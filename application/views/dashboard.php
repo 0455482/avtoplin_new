@@ -1,5 +1,5 @@
 <!-- start: DASHBOARD TITLE -->
-<div class="main-content ng-scope">
+<div style="margin-top: 0;" class="main-content ng-scope">
   <div class="wrap-content container fade-in-up ng-scope" id="container">
     <section id="page-title" class="padding-top-15 padding-bottom-15">
       <div class="row">
@@ -10,41 +10,6 @@
         <div class="col-sm-5">
           <!-- start: MINI STATS WITH SPARKLINE -->
           <!-- /// controller:  'SparklineCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
-          <ul class="mini-stats pull-right" ng-controller="SparklineCtrl">
-            <li>
-              <div class="sparkline">
-                <span jq-sparkline ng-model="sales" type="bar" height="20px" bar-color="#D43F3A"></span>
-              </div>
-              <div class="values">
-                <strong class="text-dark">18304</strong>
-                <p class="text-small no-margin">
-                  Sales
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="sparkline">
-                <span jq-sparkline ng-model="earnings" type="bar" height="20px" bar-color="#5CB85C"></span>
-              </div>
-              <div class="values">
-                <strong class="text-dark">&#36;3,833</strong>
-                <p class="text-small no-margin">
-                  Earnings
-                </p>
-              </div>
-            </li>
-            <li>
-              <div class="sparkline">
-                <span jq-sparkline ng-model="referrals" type="bar" height="20px" bar-color="#46B8DA"></span>
-              </div>
-              <div class="values">
-                <strong class="text-dark">&#36;848</strong>
-                <p class="text-small no-margin">
-                  Referrals
-                </p>
-              </div>
-            </li>
-          </ul>
           <!-- end: MINI STATS WITH SPARKLINE -->
         </div>
       </div>
@@ -105,7 +70,37 @@
     </div>
     <!-- end: FEATURED BOX LINKS -->
     <!-- start: FIRST SECTION -->
-    <div class="container-fluid container-fullw padding-bottom-10">
+    <div class="container-fluid container-fullw bg-white">
+  		<div class="row">
+  			<div class="col-md-12">
+  				<h5 class="over-title margin-bottom-15">Togglable <span class="text-bold">Tabs</span></h5>
+  				<p>
+  					Add quick, dynamic tab functionality to transition through panes of content, even via dropdown menus.
+  				</p>
+  				<uib-tabset class="tabbable">
+  					<uib-tab heading="Static title">
+  						<h4>Static content</h4>
+  						<p>
+  							Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent.
+  						</p>
+  						<p>
+  							Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
+  						</p>
+  					</uib-tab>
+  					<uib-tab ng-repeat="tab in statuses" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
+  						{{tab.content}}
+  					</uib-tab>
+  					<uib-tab select="alertMe()">
+  						<uib-tab-heading>
+  							<i class="glyphicon glyphicon-bell"></i> Alert!
+  						</uib-tab-heading>
+  						I've got an HTML heading, and a select callback. Pretty cool!
+  					</uib-tab>
+  				</uib-tabset>
+  			</div>
+  		</div>
+  	</div>
+    <!-- <div class="container-fluid container-fullw padding-bottom-10">
       <div class="row">
         <div class="col-sm-12">
           <div class="row">
@@ -153,7 +148,7 @@
                 <div uib-collapse="visits" ng-init="visits=false" class="panel-wrapper">
                   <div class="panel-body">
                     <!-- /// controller:  'VisitsCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
-                    <div ng-controller="VisitsCtrl" class="height-350">
+                    <!-- <div ng-controller="VisitsCtrl" class="height-350">
                       <canvas class="tc-chart" tc-chartjs-line chart-options="options" chart-data="data" chart-legend="chart1" width="100%"></canvas>
                       <div class="margin-top-20">
                         <div tc-chartjs-legend chart-legend="chart1" class="inline pull-left"></div>
@@ -162,7 +157,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="col-md-5 col-lg-4">
               <div class="panel panel-white no-radius">
                 <div class="panel-heading border-light">
@@ -209,10 +204,10 @@
                   </div>
                   <div class="margin-top-10">
                     <!-- /// controller:  'SalesCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
-                    <div ng-controller="SalesCtrl" class="height-180">
+                    <!-- <div ng-controller="SalesCtrl" class="height-180">
                       <canvas class="tc-chart" tc-chartjs-bar chart-options="options" chart-data="data" chart-legend="chart2"></canvas>
                       <div tc-chartjs-legend chart-legend="chart2" class="inline pull-left legend-xs"></div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -220,7 +215,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- end: FIRST SECTION -->
     <!-- start: SECOND SECTION -->
     <div class="container-fluid container-fullw bg-white">
@@ -315,7 +310,7 @@
             </div>
             <div class="panel-body">
               <!-- /// controller:  'OnotherCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
-              <div ng-controller="OnotherCtrl">
+              <!-- <div ng-controller="OnotherCtrl">
                 <div class="text-center">
                   <span class="mini-pie"> <canvas class="tc-chart" tc-chartjs-doughnut chart-options="options" chart-data="data" chart-legend="chart3" width="100"></canvas> <span>{{total}}</span> </span>
                   <span class="inline text-large no-wrap">Acquisition</span>
@@ -323,7 +318,7 @@
                 <div class="margin-top-20 text-center legend-xs">
                   <div tc-chartjs-legend chart-legend="chart3" class="inline"></div>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class="panel-footer">
               <div class="clearfix padding-5 space5">
@@ -493,12 +488,12 @@
                             </div>
                             <div class="panel-body">
                               <!-- /// controller:  'LastCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
-                              <div ng-controller="LastCtrl">
+                              <!-- <div ng-controller="LastCtrl">
                                 <canvas class="tc-chart" tc-chartjs-radar chart-options="options" chart-data="data" chart-legend="chart4"></canvas>
                                 <div class="margin-top-20 padding-bottom-5">
                                   <div tc-chartjs-legend chart-legend="chart4" class="inline"></div>
                                 </div>
-                              </div>
+                              </div> -->
                             </div>
                             <div class="panel-footer">
                               <div class="clearfix padding-5 space5">
@@ -531,7 +526,7 @@
                         <div class="col-xs-12 col-sm-4">
                           <div class="row">
                             <!-- /// controller:  'SparklineCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
-                            <div ng-controller="SparklineCtrl">
+                            <!-- <div ng-controller="SparklineCtrl">
                               <div class="col-md-12">
                                 <div class="panel panel-white no-radius">
                                   <div class="panel-body padding-20 text-center">
@@ -562,7 +557,7 @@
                                   </div>
                                 </div>
                               </div>
-                            </div>
+                            </div> -->
                           </div>
                         </div>
                         <div class="col-xs-12 col-sm-4">
@@ -659,7 +654,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-4">
                           <!-- /// controller:  'ChatCtrl' -  localtion: assets/js/controllers/chatCtrl.js /// -->
-                          <div ng-controller="ChatCtrl">
+                          <!-- <div ng-controller="ChatCtrl">
                             <div class="panel panel-white no-radius">
                               <div class="panel-heading border-bottom">
                                 <h4 class="panel-title">Chat</h4>
@@ -671,7 +666,7 @@
                               </div>
                               <chat-submit submit-function="sendMessage" ng-model="chatMessage" scroll-element="#chatBox"></chat-submit>
                             </div>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
                     </div>

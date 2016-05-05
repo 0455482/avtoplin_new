@@ -1,4 +1,4 @@
-app.controller('loginCtrl', function ($scope, $rootScope, $routeParams, $location, $http) { 
+app.controller('loginCtrl', function ($scope, $rootScope, $location, $http) { 
     $scope.fail = false;
     if(validation_url == 0) {
         $scope.fail = true;

@@ -39,6 +39,7 @@ app.controller('dashboardCtrl', function ($scope, $http, $location, $uibModal, $
     $scope.initData = function() {
             GetDataService.get('Dashboard/init').then(function(result) {
             $scope.statuses = result.data.statuses;
+            console.log($scope.statuses);
             ($scope.tab_status_id > 8) ? $scope.color = '#0466A7' : $scope.color = $scope.statuses[$scope.tab_status_id - 1].color;
             $rootScope.statuses = result.data.statuses;
             $scope.thumbnails = result.data.box_stats;
