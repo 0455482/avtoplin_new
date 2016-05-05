@@ -268,6 +268,7 @@ app.controller('createUserModalInstanceCtrl', function ($scope, $uibModalInstanc
     $scope.user = {};
 
     $scope.ok = function () {
+        $scope.loading = true;
         GetDataService.post('Settings/createUser', {
             user: $scope.user
         }).then(function(result) {
@@ -287,7 +288,7 @@ app.controller('editSMSModalInstanceCtrl', function ($scope, sms, $uibModalInsta
     $scope.sms = angular.copy(sms);
     $scope.sms.active = parseInt($scope.sms.active);
 
-    $scope.ok = function () {$scope.loading = true;
+    $scope.ok = function () {
         $scope.loading = true;
         GetDataService.post('Settings/editSmsTemplate', {
             sms: $scope.sms,
@@ -316,7 +317,7 @@ app.controller('editSMSModalInstanceCtrl', function ($scope, sms, $uibModalInsta
 app.controller('colorsModalInstanceCtrl', function ($scope, status, $uibModalInstance, GetDataService, $rootScope) {
     $scope.color = angular.copy(status.color);
 
-    $scope.ok = function () {$scope.loading = true;
+    $scope.ok = function () {
         $scope.loading = true;
         GetDataService.post('Settings/setStatusColor', {
             id: status.id,
@@ -337,7 +338,8 @@ app.controller('createSMSModalInstanceCtrl', function ($scope, GetDataService, $
     $scope.sms = {};
     $scope.title = "Ustvari SMS";
 
-    $scope.ok = function () {$scope.loading = true;
+    $scope.ok = function () {
+        $scope.loading = true;
         GetDataService.post('Settings/createSmsTemplate', {
             sms: $scope.sms,
         }).then(function(result) {

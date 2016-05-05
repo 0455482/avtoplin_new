@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="panel-footer">
                                     <div style="width:100%; text-align:center;">
-                                        <button type="button" class="btn btn-wide btn-primary" ng-click="">Dodaj mesečne stroške</button>
+                                        <button type="button" class="btn btn-wide btn-primary" ng-click="showAddExpensesModal()">Dodaj mesečne stroške</button>
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                                 </div>
                                 <div uib-collapse="visits" ng-init="visits=false" class="panel-wrapper">
                                     <div class="panel-body">
-                                        <canvas class="chart chart-line" chart-data="statistics[2].data" chart-labels="statistics[2].labels" chart-legend="true" chart-series="statistics[2].series" chart-options="options"> </canvas>
+                                        <canvas class="chart chart-bar" chart-data="statistics[2].data" chart-labels="statistics[2].labels" chart-legend="true" chart-series="statistics[2].series" chart-options="options"> </canvas>
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +124,7 @@
                                 </div>
                                 <div uib-collapse="visits" ng-init="visits=false" class="panel-wrapper">
                                     <div class="panel-body">
-                                        <canvas class="chart chart-bar" chart-data="statistics[4].data" chart-labels="statistics[4].labels" chart-legend="true" chart-series="statistics[4].series" chart-options="options"> </canvas>
+                                        <canvas class="chart chart-line" chart-data="statistics[4].data" chart-labels="statistics[4].labels" chart-legend="true" chart-series="statistics[4].series" chart-options="options"> </canvas>
                                     </div>
                                 </div>
                             </div>
@@ -161,3 +161,33 @@
         </div>
     </div>
 </div>
+
+<script type="text/ng-template" id="AddExpensesModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Dodaj mesečne stroške</h3>
+    </div>
+    <div class="modal-body">
+        <label for="form-field-select-2">
+            Mesec
+        </label>
+        <p class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="date" datepicker-options="dateOptions" is-open="opened" ng-change="getExpenses()"/>
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+        <div class="form-group">
+            <label>
+                Stroške
+            </label>
+            <div class="input-group">
+                <span class="input-group-addon">€</span>
+                <input type="text" ng-model="expenses" ng-required="true" ng-pattern="/^[0-9]+([,.][0-9]+)?$/" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">Shrani</button>
+        <button class="btn btn-primary btn-o" ng-click="cancel()">Prekliči</button>
+    </div>
+</script>

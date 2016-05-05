@@ -11,13 +11,7 @@
 //     }
 // })
 
-app.controller('statisticsCtrl', function ($scope, GetDataService, updateURL, parseGetParams, $rootScope) {
-    $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
-    $scope.series = ['Series A', 'Series B'];
-    $scope.data = [
-        [65, 59, 80, 81, 56, 55, 40],
-        [28, 48, 40, 19, 86, 27, 90]
-    ];
+app.controller('statisticsCtrl', function ($scope, GetDataService, updateURL, parseGetParams, $rootScope, $uibModal) {
 
     $scope.options = {
         // Sets the chart to be responsive
@@ -89,7 +83,6 @@ app.controller('statisticsCtrl', function ($scope, GetDataService, updateURL, pa
             tmpDate.setFullYear(tmpDate.getFullYear() + 1);
         }
         self.selectedDateYear = i - 1;
-        // $scope.switchTab($scope.selectedTab);
         $scope.getStatistika();
     }
 
@@ -99,276 +92,174 @@ app.controller('statisticsCtrl', function ($scope, GetDataService, updateURL, pa
             $scope.date_to = self.dateTo;
         }
         else if ($scope.selectedDateOption == "1")
-            $scope.date_year = new Date($scope.dateYearOptions[self.selectedDateYear].date.getFullYear(), 0, 1);
+        $scope.date_year = new Date($scope.dateYearOptions[self.selectedDateYear].date.getFullYear(), 0, 1);
     }
 
     $scope.getStatistika = function() {
-           $scope.loading = true;
-           setPostDates();
-           var data = {
-               flag: $scope.selectedDateOption
-           };
-           if ($scope.selectedDateOption == "0") {
-               data.date_from = $scope.date_from.format('isoDate');
-               data.date_to = $scope.date_to.format('isoDate');
-           } else {
-               data.date_year = $scope.date_year.format('yyyy');
-           }
-           data.utm = $scope.utmOptions[$scope.selectedUTMOption].title.toLowerCase();
-        //    if ($scope.tabs[$scope.selectedTab].title == 'UTM Statistika') {
-        //
-        //    }
+        $scope.loading = true;
+        setPostDates();
+        var data = {
+            flag: $scope.selectedDateOption
+        };
+        if ($scope.selectedDateOption == "0") {
+            data.date_from = $scope.date_from.format('isoDate');
+            data.date_to = $scope.date_to.format('isoDate');
+        } else {
+            data.date_year = $scope.date_year.format('yyyy');
+        }
+        data.utm = $scope.utmOptions[$scope.selectedUTMOption].title.toLowerCase();
 
-            $scope.statistics = [];
+        $scope.statistics = [];
+        angular.forEach($scope.tabs, function(value, key) {
+            if (value.title == "Profit" && data.flag == 0) {
+                GetDataService.post('Statistics/' + value.post, {
+                    flag: 1,
+                    date_year: new Date($scope.dateYearOptions[self.selectedDateYear].date.getFullYear(), 0, 1).format('yyyy')
+                })
+                .then(function(result) {
+                    if (result.data) {
+                        $scope.statistics[key] = {};
+                        $scope.statistics[key].labels = result.data.date;
+                        $scope.statistics[key].series = [];
+                        $scope.statistics[key].data = [];
+                        angular.forEach(result.data.count, function(value2, key2) {
+                            $scope.statistics[key].series.push(value2.name);
+                            $scope.statistics[key].data.push(value2.data);
+                        });
+                        $scope.loading = false;
+                    } else {
+                        $scope.loading = false;
+                        // $rootScope.showAlert('badRequest');
+                    }
+                }, function errorCallback(response) {
+                    if(response.status != 200) {
+                        $scope.loading = false;
+                        // $rootScope.showAlert('badRequest');
+                    }
+                });
+            } else {
+                GetDataService.post('Statistics/' + value.post, data)
+                .then(function(result) {
+                    if (result.data) {
+                        $scope.statistics[key] = {};
+                        $scope.statistics[key].labels = result.data.date;
+                        $scope.statistics[key].series = [];
+                        $scope.statistics[key].data = [];
+                        angular.forEach(result.data.count, function(value2, key2) {
+                            $scope.statistics[key].series.push(value2.name);
+                            $scope.statistics[key].data.push(value2.data);
+                        });
+                        $scope.loading = false;
+                    } else {
+                        $scope.loading = false;
+                        // $rootScope.showAlert('badRequest');
+                    }
+                }, function errorCallback(response) {
+                    if(response.status != 200) {
+                        $scope.loading = false;
+                        // $rootScope.showAlert('badRequest');
+                    }
+                });
+            }
+        })
+    }
 
-            angular.forEach($scope.tabs, function(value, key) {
-                if (value.title == "Profit" && data.flag == 0) {
-                    GetDataService.post('Statistics/' + value.post, {
-                        flag: 1,
-                        date_year: new Date($scope.dateYearOptions[self.selectedDateYear].date.getFullYear(), 0, 1).format('yyyy')
-                    })
-                    .then(function(result) {
-                        if (result.data) {
-                            $scope.statistics[key] = {};
-                            $scope.statistics[key].labels = result.data.date;
-                            $scope.statistics[key].series = [];
-                            $scope.statistics[key].data = [];
-                            angular.forEach(result.data.count, function(value2, key2) {
-                                $scope.statistics[key].series.push(value2.name);
-                                $scope.statistics[key].data.push(value2.data);
-                            });
-                            // $scope.statistics[key].series = result.data.count;
-                            // $scope.statistics[key].title = value.title;
-                            $scope.loading = false;
-                        } else {
-                            $scope.loading = false;
-                            // $rootScope.showAlert('badRequest');
-                        }
-                    }, function errorCallback(response) {
-                        if(response.status != 200) {
-                            $scope.loading = false;
-                            // $rootScope.showAlert('badRequest');
-                        }
-                    });
+    $scope.showAddExpensesModal = function() {
+        var modalInstance = $uibModal.open({
+            controller: 'addExpensesModalInstanceCtrl',
+            templateUrl: 'AddExpensesModal.html',
+        });
+        modalInstance.result.then(function (id) {
+            // $scope.initData();
+        }, function () {
+        });
+    };
+});
+
+
+/**
+ * Controller for add expenses modal
+ */
+app.controller('addExpensesModalInstanceCtrl', function($scope, $uibModalInstance, GetDataService, $rootScope) {
+    //init params
+    $scope.format = 'MM/yyyy';
+    $scope.opened = false;
+    $scope.dateOptions = {
+       datepickerMode:"'month'",
+       minMode:"'month'",
+       minDate:"minDate",
+       showWeeks:"false",
+    };
+
+    $scope.expenses = 0.00;
+    $scope.id = -1;
+    $scope.date = new Date();
+
+    /**
+     * init data function
+     * input parameter
+     * returns date now and expenses for that date
+     */
+    $scope.initData = function() {
+        $scope.date = new Date();
+        $scope.getExpenses();
+    }
+
+    // function that gets expenses
+    // for chosen month
+    $scope.getExpenses = function() {
+        $scope.loading = true;
+        GetDataService.post('Statistics/getExpensesForDate', {
+            date: $scope.date.format('yyyy-mm')
+        }).then(function(result) {
+            if (result.data) {
+                $scope.id = result.data.id;
+                if (result.data.expenses) {
+                    $scope.expenses = result.data.expenses;
                 } else {
-                    GetDataService.post('Statistics/' + value.post, data)
-                    .then(function(result) {
-                        if (result.data) {
-                            $scope.statistics[key] = {};
-                            $scope.statistics[key].labels = result.data.date;
-                            $scope.statistics[key].series = [];
-                            $scope.statistics[key].data = [];
-                            angular.forEach(result.data.count, function(value2, key2) {
-                                $scope.statistics[key].series.push(value2.name);
-                                $scope.statistics[key].data.push(value2.data);
-                            });
-                            console.log(key, result.data);
-                            // $scope.statistics[key].series = result.data.count;
-                            // $scope.statistics[key].title = value.title;
-                            $scope.loading = false;
-                        } else {
-                            $scope.loading = false;
-                            // $rootScope.showAlert('badRequest');
-                        }
-                    }, function errorCallback(response) {
-                        if(response.status != 200) {
-                            $scope.loading = false;
-                            // $rootScope.showAlert('badRequest');
-                        }
-                    });
+                    $scope.expenses = 0;
                 }
-            })
+                $scope.loading = false;
+            } else {
+                $scope.loading = false;
+                // $rootScope.showAlert('badRequest');
+            }
+        }, function errorCallback(response) {
+            if(response.status != 200) {
+                $scope.loading = false;
+                // $rootScope.showAlert('badRequest');
+            }
+        });
+    }
 
-        //    GetDataService.post('Statistics/' + $scope.tabs[$scope.selectedTab].post, data)
-        //    .then(function(result) {
-        //        if (result.data) {
-        //            $scope.chartConfig.series = result.data.count;
-        //            $scope.chartConfig.xAxis.categories = result.data.date;
-        //            $scope.chartConfig.title.text = $scope.tabs[$scope.selectedTab].title;
-        //            $scope.loading = false;
-        //        } else {
-        //            $scope.loading = false;
-        //            $rootScope.showAlert('badRequest');
-        //        }
-        //    }, function errorCallback(response) {
-        //        if(response.status != 200) {
-        //            $scope.loading = false;
-        //            $rootScope.showAlert('badRequest');
-        //        }
-        //    });
-       }
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
 
-    // init params
-    //     $scope.tabs = [
-    //         { title: 'Statistika naročil', id: 0, post: 'getAllOrders'},
-    //         { title: 'Profit', id: 1, post: 'calculateYearProfit'},
-    //         { title: 'Statistika rezerviranih', id: 2, post: 'getReservedOrders'},
-    //         { title: 'Statistika realiziranih', id: 3, post: 'getRealizedOrders'},
-    //         { title: 'Uspešnost', id: 4, post: 'getConversion'},
-    //         { title: 'UTM Statistika', id: 5, post: 'getUTMStatistika'}
-    //     ];
-    //     $scope.selectedTab = "0";
+    $scope.open = function() {
+        $scope.opened = !$scope.opened;
+    };
 
-    //     $scope.chartConfig = {
-    //         options: {
-    //             chart: {
-    //                 type: 'column'
-    //             }
-    //         },
-    //         series: [{
-    //             data: []
-    //         }],
-    //         title: {
-    //             text: 'Statistika paketov'
-    //         },
-    //         xAxis: {
-    //             categories: []
-    //         },
-    //         yAxis: {
-    //             title: {
-    //                 text: ''
-    //             }
-    //         },
-    //         loading: false
-    //     };
-    //     var getParams = {};
-
-    //     //function for getting statistics data
-    //     //depending on the selected tab
-    //     $scope.getStatistika = function() {
-    //         $scope.loading = true;
-    //         var data = {
-    //             flag: $scope.selectedDateOption
-    //         };
-    //         if ($scope.selectedDateOption=="0") {
-    //             data.date_from = $scope.date_from.format('isoDate');
-    //             data.date_to = $scope.date_to.format('isoDate');
-    //         } else {
-    //             data.date_year = $scope.date_year.format('yyyy');
-    //         }
-    //
-    //         if ($scope.tabs[$scope.selectedTab].title == 'UTM Statistika') {
-    //             data.utm = $scope.utmOptions[$scope.selectedUTMOption].title.toLowerCase();
-    //         }
-    //
-    //         GetDataService.post('Statistics/' + $scope.tabs[$scope.selectedTab].post, data)
-    //         .then(function(result) {
-    //             if (result.data) {
-    //                 $scope.chartConfig.series = result.data.count;
-    //                 $scope.chartConfig.xAxis.categories = result.data.date;
-    //                 $scope.chartConfig.title.text = $scope.tabs[$scope.selectedTab].title;
-    //                 $scope.loading = false;
-    //             } else {
-    //                 $scope.loading = false;
-    //                 $rootScope.showAlert('badRequest');
-    //             }
-    //         }, function errorCallback(response) {
-    //             if(response.status != 200) {
-    //                 $scope.loading = false;
-    //                 $rootScope.showAlert('badRequest');
-    //             }
-    //         });
-    //     }
-    //
-    //     //function that shows modal
-    //     //for adding expenses
-    //     $scope.showAddExpensesModal = function() {
-    //         $scope.loading = true;
-    //         $mdDialog.show({
-    //             controller: 'addExpensesModalInstanceCtrl',
-    //             templateUrl: 'AddExpensesModal.html',
-    //             clickOutsideToClose: true,
-    //             resolve: {
-    //             }
-    //         }).then(function() {
-    //         });
-    //         $scope.loading = false;
-    //     }
-    // });
-    //
-    // /**
-    //  * Controller for add expenses modal
-    //  */
-    // app.controller('addExpensesModalInstanceCtrl', function($scope, $mdDialog, GetDataService, $rootScope) {
-    //     //init params
-    //     $scope.format = 'MM/yyyy';
-    //     $scope.opened = false;
-    //     $scope.dateOptions = {
-    //         minMode: 'month'
-    //     };
-    //     $scope.expenses = 0.00;
-    //     $scope.id = -1;
-    //
-    //     /**
-    //      * init data function
-    //      * input parameter
-    //      * returns date now and expenses for that date
-    //      */
-    //     $scope.initData = function() {
-    //         $scope.date = new Date();
-    //         $scope.getExpenses();
-    //     }
-    //
-    //
-    //     // function that gets expenses
-    //     // for chosen month
-    //     $scope.getExpenses = function() {
-    //         $scope.loading = true;
-    //         GetDataService.post('Statistics/getExpensesForDate', {
-    //             date: $scope.date.format('yyyy-mm')
-    //         }).then(function(result) {
-    //             if (result.data) {
-    //                 $scope.id = result.data.id;
-    //                 if (result.data.expenses) {
-    //                     $scope.expenses = result.data.expenses;
-    //                 } else {
-    //                     $scope.expenses = 0;
-    //                 }
-    //                 $scope.loading = false;
-    //             } else {
-    //                 $scope.loading = false;
-    //                 $rootScope.showAlert('badRequest');
-    //             }
-    //         }, function errorCallback(response) {
-    //             if(response.status != 200) {
-    //                 $scope.loading = false;
-    //                 $rootScope.showAlert('badRequest');
-    //             }
-    //         });
-    //     }
-    //
-    //     $scope.hide = function() {
-    //         $mdDialog.hide();
-    //     };
-    //     $scope.cancel = function() {
-    //         $mdDialog.cancel();
-    //     };
-    //     $scope.open = function() {
-    //         $scope.opened = true;
-    //     };
-    //
-    //     // function that adds expenses for chosen month
-    //     // if expenses exist sends id else sends id = -1s
-    //     $scope.addExpenses = function(date, expenses) {
-    //         $scope.loading = true;
-    //         GetDataService.post('Statistics/addMonthlyExpenses', {
-    //             date: date.format('yyyy-mm'),
-    //             expenses: expenses,
-    //             id: $scope.id
-    //         }).then(function(result) {
-    //             if (result.data) {
-    //                 $scope.hide();
-    //                 $scope.loading = false;
-    //                 $rootScope.showAlert('expensesAddSuccess');
-    //             } else {
-    //                 $scope.loading = false;
-    //                 $rootScope.showAlert('badRequest');
-    //             }
-    //         }, function errorCallback(response) {
-    //             if(response.status != 200) {
-    //                 $scope.loading = false;
-    //                 $rootScope.showAlert('badRequest');
-    //             }
-    //         });
-    //     }
+    $scope.ok = function () {
+        $scope.loading = true;
+        GetDataService.post('Statistics/addMonthlyExpenses', {
+            date: $scope.date.format('yyyy-mm'),
+            expenses: $scope.expenses,
+            id: $scope.id
+        }).then(function(result) {
+            if (result.data) {
+                $uibModalInstance.close(1);
+                $scope.loading = false;
+                // $rootScope.showAlert('expensesAddSuccess');
+            } else {
+                $scope.loading = false;
+                // $rootScope.showAlert('badRequest');
+            }
+        }, function errorCallback(response) {
+            if(response.status != 200) {
+                $scope.loading = false;
+                // $rootScope.showAlert('badRequest');
+            }
+        });
+    };
 });
