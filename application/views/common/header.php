@@ -49,6 +49,7 @@
 	<link rel="stylesheet" href="../bower_components/selectize/dist/css/selectize.bootstrap3.css">
 	<link rel="stylesheet" href="../bower_components/select2-bootstrap-css/select2-bootstrap.min.css">
 	<link rel="stylesheet" href="../bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css">
+	<link rel="stylesheet" href="../bower_components/angular-chart.js/dist/angular-chart.css" />
 </head>
 
 
@@ -191,7 +192,7 @@
 					</ul>
 				</li>
 					<li ui-sref-active="active">
-						<a href="<?php echo base_url(); ?>index.php/statistics" ng-click="statistics()">
+						<a href="<?php echo base_url(); ?>index.php/statistics" target="_self" ng-click="statistics()">
 							<div class="item-content">
 								<div class="item-media">
 									<i class="ti-bar-chart"></i>
@@ -233,8 +234,6 @@ var loged_this_week = <?php echo $this->session->userdata["data"]["logged_this_w
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/bootstrap-colorpicker-module.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/select.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/highcharts.src.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/highcharts-ng.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/date.format.js"></script>
 	<script src="<?php echo base_url(); ?>bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 	<script src="<?php echo base_url(); ?>bower_components/angular-cookies/angular-cookies.min.js"></script>
@@ -253,6 +252,10 @@ var loged_this_week = <?php echo $this->session->userdata["data"]["logged_this_w
 	<script src="<?php echo base_url(); ?>bower_components/perfect-scrollbar/js/min/perfect-scrollbar.min.js"></script>
 	<script src="<?php echo base_url(); ?>bower_components/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js"></script>
 	<script src="<?php echo base_url(); ?>bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+  	<script src="<?php echo base_url(); ?>bower_components/Chart.js/Chart.min.js"></script>
+	<!-- <script src="<?php echo base_url(); ?>bower_components/chartjs/Chart.min.js"></script> -->
+  	<script src="<?php echo base_url(); ?>bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/tc-angular-chartjs/dist/tc-angular-chartjs.min.js"></script>
 	<script src="<?php echo base_url(); ?>bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
 	<script src="<?php echo base_url(); ?>bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
 	<script src="<?php echo base_url(); ?>bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
@@ -264,18 +267,19 @@ var loged_this_week = <?php echo $this->session->userdata["data"]["logged_this_w
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/chat.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/compare-to.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/dismiss.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/empty-links.js"></script>
+	<!-- <script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/empty-links.js"></script> -->
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/file-upload.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/full-height.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/messages.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/off-click.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/panel-tools.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/perfect-scrollbar.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/sidebars.js"></script>
+	<!-- <script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/perfect-scrollbar.js"></script> -->
+	<!-- <script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/sidebars.js"></script> -->
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/sparkline.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/toggle.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/touchspin.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/controllers/header.js"></script>
+
 
 	<?php load_scripts($this->router->class, 'service'); ?>
 	<?php load_scripts($this->router->class, 'js');?>

@@ -285,40 +285,6 @@
 
 <script type="text/ng-template" id="SMSModalContent.html">
     <div class="modal-header">
-        <h3 class="modal-title">Ustvari SMS!</h3>
-    </div>
-    <div class="modal-body">
-        <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon"> <i class="fa fa-pencil"></i> </span>
-                <input type="text" class="form-control" placeholder="Naslov" ng-model="sms.name">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon"> <i class="fa fa-align-justify"></i> </span>
-                <input type="text" class="form-control" placeholder="Vsebina" ng-model="sms.text">
-            </div>
-        </div>
-            <div class="form-group">
-                <label for="form-field-select-1">
-                    Active / Inactive
-                </label>
-                <select class="cs-select cs-skin-slide" ng-model="sms.active">
-                    <option value=""></option>
-                    <option value="1" data-class="fa fa-circle">Active</option>
-                    <option value="0" data-class="fa fa-circle-o">Inactive</option>
-                </select>
-            </div>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="ok()">Shrani</button>
-        <button class="btn btn-primary btn-o" ng-click="cancel()">Prekliči</button>
-    </div>
-</script>
-
-<script type="text/ng-template" id="SMSModalContent.html">
-    <div class="modal-header">
         <h3 class="modal-title">{{title}}</h3>
     </div>
     <div class="modal-body">
