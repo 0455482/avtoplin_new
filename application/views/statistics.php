@@ -10,6 +10,23 @@
         </section>
 
         <div class="container-fluid container-fullw bg-white">
+            <div class="row">
+        		<div class="col-md-12">
+        			<h5 class="over-title margin-bottom-15"><span class="text-bold">3D rolling</span> links</h5>
+        			<p>
+        				Enclose your link inside the class <code>.cl-effect-2</code>
+        			</p>
+        			<div class="margin-top-30 margin-bottom-30">
+        				<nav id="cl-effect-2" class="links cl-effect-2">
+        					<a href><span data-hover="Ratatouille">Ratatouille</span></a>
+        					<a href><span data-hover="Lassitude">Lassitude</span></a>
+        					<a href><span data-hover="Murmurous">Murmurous</span></a>
+        					<a href><span data-hover="Palimpsest">Palimpsest</span></a>
+        					<a href><span data-hover="Assemblage">Assemblage</span></a>
+        				</nav>
+        			</div>
+        		</div>
+        	</div>
         	<div class="row">
         		<div class="col-sm-12">
         			<h5 class="over-title margin-bottom-15">Statistika naročil</h5>

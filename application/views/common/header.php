@@ -250,6 +250,8 @@ var loged_this_week = <?php echo $this->session->userdata["data"]["logged_this_w
 	<script src="<?php echo base_url(); ?>bower_components/angular-ui-select/dist/select.min.js"></script>
 	<script src="<?php echo base_url(); ?>bower_components//angular-ui-utils/mask.min.js"></script>
 	<script src="<?php echo base_url(); ?>bower_components/angular-elastic/elastic.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/perfect-scrollbar/js/min/perfect-scrollbar.min.js"></script>
+	<script src="<?php echo base_url(); ?>bower_components/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js"></script>
 	<script src="<?php echo base_url(); ?>bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
 	<script src="<?php echo base_url(); ?>bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
 	<script src="<?php echo base_url(); ?>bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
@@ -272,7 +274,7 @@ var loged_this_week = <?php echo $this->session->userdata["data"]["logged_this_w
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/sidebars.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/sparkline.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/toggle.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/touchsping.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/touchspin.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/controllers/header.js"></script>
 
 	<?php load_scripts($this->router->class, 'service'); ?>
