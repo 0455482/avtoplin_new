@@ -224,6 +224,31 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="panel panel-white no-radius">
+                                    <div class="panel-heading border-light">
+                                        <h4 class="panel-title">POPUSTI</h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <table class="engines_table">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="nothing"> </td>
+                                                    <td class="heading"> <b>Cena €</b> </td>
+                                                </tr>
+                                                <tr ng-repeat="discount in discounts">
+                                                    <td> <b>{{discount.type}}</b> </td>
+                                                    <td>
+                                                        <input notnumber type="text" ng-model="discount.value" required placeholder="Vnesi ceno" class="form-control input-sm"/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-sm-6">
                                 <div class="panel panel-white no-radius">
                                     <div class="panel-heading border-bottom">
@@ -243,29 +268,6 @@
                                                     <td class="threetd"> <input notnumber type="text" ng-model="installment.deposit" required placeholder="Vnesi ceno" class="form-control input-sm"/></td>
                                                     <td class="threetd"> <input notnumber type="text" ng-model="installment.num_of_installments" required placeholder="Vnesi ure" class="form-control input-sm"/> </td>
                                                     <td class="threetd"> <input notnumber type="text" ng-model="installment.subsidy" required placeholder="Vnesi ure" class="form-control input-sm"/> </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6" style="margin-top: -210px !important;">
-                                <div class="panel panel-white no-radius">
-                                    <div class="panel-heading border-light">
-                                        <h4 class="panel-title">POPUSTI</h4>
-                                    </div>
-                                    <div class="panel-body">
-                                        <table class="engines_table">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="nothing"> </td>
-                                                    <td class="heading"> <b>Cena €</b> </td>
-                                                </tr>
-                                                <tr ng-repeat="discount in discounts">
-                                                    <td> <b>{{discount.type}}</b> </td>
-                                                    <td>
-                                                        <input notnumber type="text" ng-model="discount.value" required placeholder="Vnesi ceno" class="form-control input-sm"/>
-                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
