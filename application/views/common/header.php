@@ -236,11 +236,6 @@ var loged_this_week = <?php echo $this->session->userdata["data"]["logged_this_w
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/highcharts.src.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/highcharts-ng.js"></script>
 	<script type="text/javascript" src="<?php echo base_url(); ?>resources/libs/js/date.format.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/app.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/data.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/directive.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/select.js"></script>
-	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/controllers/header.js"></script>
 	<script src="<?php echo base_url(); ?>bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 	<script src="<?php echo base_url(); ?>bower_components/angular-cookies/angular-cookies.min.js"></script>
 	<script src="<?php echo base_url(); ?>bower_components/ngstorage/ngStorage.min.js"></script>
@@ -259,6 +254,26 @@ var loged_this_week = <?php echo $this->session->userdata["data"]["logged_this_w
 	<script src="<?php echo base_url(); ?>bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
 	<script src="<?php echo base_url(); ?>bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
 	<script src="<?php echo base_url(); ?>bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/app.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/data.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/directive.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/select.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/char-limit.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/chat.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/compare-to.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/dismiss.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/empty-links.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/file-upload.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/full-height.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/messages.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/off-click.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/panel-tools.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/perfect-scrollbar.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/sidebars.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/sparkline.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/toggle.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/services/touchsping.js"></script>
+	<script type="text/javascript" src="<?php echo base_url(); ?>resources/scripts/controllers/header.js"></script>
 
 	<?php load_scripts($this->router->class, 'service'); ?>
 	<?php load_scripts($this->router->class, 'js');?>
