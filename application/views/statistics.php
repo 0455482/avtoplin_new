@@ -1,4 +1,5 @@
 <div class="main-content ng-scope" ng-controller="statisticsCtrl as self" ng-init="initData()">
+    <uib-alert type="{{alert.type}}" close="closeAlert()" ng-if="show" dismiss-on-timeout="2000" class="alert">{{alert.msg}}</uib-alert>
     <div class="wrap-content container fade-in-up ng-scope" id="container">
         <section id="page-title" class="padding-top-15 padding-bottom-15">
             <div class="row">

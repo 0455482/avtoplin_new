@@ -1,16 +1,16 @@
-// app.run(function($rootScope, notification) {
-//     $rootScope.statuses = '';
-//     $rootScope.show = false;
-//
-//     $rootScope.closeAlert = function() {
-//         $rootScope.show = false;
-//     }
-//
-//     $rootScope.showAlert = function(id) {
-//         $rootScope.show = true;
-//         $rootScope.alert = notification.get(id);
-//     }
-// })
+app.run(function($rootScope, notification) {
+    $rootScope.statuses = '';
+    $rootScope.show = false;
+
+    $rootScope.closeAlert = function() {
+        $rootScope.show = false;
+    }
+
+    $rootScope.showAlert = function(id) {
+        $rootScope.show = true;
+        $rootScope.alert = notification.get(id);
+    }
+})
 
 app.controller('settingsCtrl', function ($scope, $log, updateURL, parseGetParams, GetDataService, $rootScope, $uibModal) {
     //initialization defaults
@@ -32,7 +32,6 @@ app.controller('settingsCtrl', function ($scope, $log, updateURL, parseGetParams
         } else {
             $scope.selectedIndex = parseInt(getParams.element);
             $scope.switchTab($scope.selectedIndex);
-
         }
 
         $scope.$on("settingsElementChanged", function () {
@@ -57,12 +56,12 @@ app.controller('settingsCtrl', function ($scope, $log, updateURL, parseGetParams
                         $scope.loading = false;
                     } else {
                         $scope.loading = false;
-                        // $rootScope.showAlert('badRequest');
+                        $rootScope.showAlert('badRequest');
                     }
                 }, function errorCallback(response) {
                     if(response.status != 200) {
                         $scope.loading = false;
-                        // $rootScope.showAlert('badRequest');
+                        $rootScope.showAlert('badRequest');
                     }
                 });
                 $scope.loading = true;
@@ -82,12 +81,12 @@ app.controller('settingsCtrl', function ($scope, $log, updateURL, parseGetParams
                         $scope.loading = false;
                     } else {
                         $scope.loading = false;
-                        // $rootScope.showAlert('badRequest');
+                        $rootScope.showAlert('badRequest');
                     }
                 }, function errorCallback(response) {
                     if(response.status != 200) {
                         $scope.loading = false;
-                        // $rootScope.showAlert('badRequest');
+                        $rootScope.showAlert('badRequest');
                     }
                 });
                 break;
@@ -99,12 +98,12 @@ app.controller('settingsCtrl', function ($scope, $log, updateURL, parseGetParams
                         $scope.loading = false;
                     } else {
                         $scope.loading = false;
-                        // $rootScope.showAlert('badRequest');
+                        $rootScope.showAlert('badRequest');
                     }
                 }, function errorCallback(response) {
                     if(response.status != 200) {
                         $scope.loading = false;
-                        // $rootScope.showAlert('badRequest');
+                        $rootScope.showAlert('badRequest');
                     }
                 });
                 $scope.loading = true;
@@ -115,12 +114,12 @@ app.controller('settingsCtrl', function ($scope, $log, updateURL, parseGetParams
                         $scope.smss = result.data;
                     } else {
                         $scope.loading = false;
-                        // toast.show('badRequest', 'top');
+                        toast.show('badRequest', 'top');
                     }
                 }, function errorCallback(response) {
                     if(response.status != 200) {
                         $scope.loading = false;
-                        // toast.show('badRequest', 'top');
+                        toast.show('badRequest', 'top');
                     }
                 });
                 break;
@@ -134,12 +133,12 @@ app.controller('settingsCtrl', function ($scope, $log, updateURL, parseGetParams
                         $scope.loading = false;
                     } else {
                         $scope.loading = false;
-                        // $rootScope.showAlert('badRequest');
+                        $rootScope.showAlert('badRequest');
                     }
                 }, function errorCallback(response) {
                     if(response.status != 200) {
                         $scope.loading = false;
-                        // $rootScope.showAlert('badRequest');
+                        $rootScope.showAlert('badRequest');
                     }
                 });
                 break;
@@ -154,7 +153,7 @@ app.controller('settingsCtrl', function ($scope, $log, updateURL, parseGetParams
             installments: angular.copy(install)
         }).then(function(result) {
             $scope.loading = false;
-            // $rootScope.showAlert('offerSuccess');
+            $rootScope.showAlert('offerSuccess');
         });
     }
 
@@ -254,7 +253,7 @@ app.controller('editUserInstanceCtrl', function ($scope, $uibModalInstance, user
         }).then(function(result) {
             $uibModalInstance.close(1);
             $scope.loading = false;
-            // $rootScope.showAlert('userEditSuccess');
+            $rootScope.showAlert('userEditSuccess');
         });
     };
 
@@ -274,7 +273,7 @@ app.controller('createUserModalInstanceCtrl', function ($scope, $uibModalInstanc
         }).then(function(result) {
             $uibModalInstance.close(1);
             $scope.loading = false;
-            // $rootScope.showAlert('userCreateSuccess');
+            $rootScope.showAlert('userCreateSuccess');
         });
     };
 
@@ -296,15 +295,15 @@ app.controller('editSMSModalInstanceCtrl', function ($scope, sms, $uibModalInsta
             if(result.data) {
                 $uibModalInstance.close(1);
                 $scope.loading = false;
-                //    $rootScope.showAlert('smsEditSuccess');
+                $rootScope.showAlert('smsEditSuccess');
             } else {
                 $scope.loading = false;
-                //    $rootScope.showAlert('badRequest');
+                $rootScope.showAlert('badRequest');
             }
         }, function errorCallback(response) {
             if(response.status != 200) {
                 $scope.loading = false;
-                //    $rootScope.showAlert('badRequest');
+                $rootScope.showAlert('badRequest');
             }
         });
     };
@@ -325,7 +324,7 @@ app.controller('colorsModalInstanceCtrl', function ($scope, status, $uibModalIns
         }).then(function(result) {
             $uibModalInstance.close(1);
             $scope.loading = false;
-            // $rootScope.showAlert('colorChangeSuccess');
+            $rootScope.showAlert('colorChangeSuccess');
         });
     };
 
@@ -346,15 +345,15 @@ app.controller('createSMSModalInstanceCtrl', function ($scope, GetDataService, $
             if(result.data) {
                 $uibModalInstance.close(1);
                 $scope.loading = false;
-                // $rootScope.showAlert('smsCreateSuccess');
+                $rootScope.showAlert('smsCreateSuccess');
             } else {
                 $scope.loading = false;
-                // $rootScope.showAlert('badRequest');
+                $rootScope.showAlert('badRequest');
             }
         }, function errorCallback(response) {
             if(response.status != 200) {
                 $scope.loading = false;
-                // $rootScope.showAlert('badRequest');
+                $rootScope.showAlert('badRequest');
             }
         });
     };

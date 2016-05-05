@@ -1,15 +1,15 @@
-// app.run(function($rootScope, notification) {
-//     $rootScope.show = false;
-//
-//     $rootScope.closeAlert = function() {
-//         $rootScope.show = false;
-//     }
-//
-//     $rootScope.showAlert = function(id) {
-//         $rootScope.show = true;
-//         $rootScope.alert = notification.get(id);
-//     }
-// })
+app.run(function($rootScope, notification) {
+    $rootScope.show = false;
+
+    $rootScope.closeAlert = function() {
+        $rootScope.show = false;
+    }
+
+    $rootScope.showAlert = function(id) {
+        $rootScope.show = true;
+        $rootScope.alert = notification.get(id);
+    }
+})
 
 app.controller('statisticsCtrl', function ($scope, GetDataService, updateURL, parseGetParams, $rootScope, $uibModal) {
 
@@ -86,6 +86,10 @@ app.controller('statisticsCtrl', function ($scope, GetDataService, updateURL, pa
         $scope.getStatistika();
     }
 
+    $scope.pop = function(){
+          $rootScope.showAlert('badRequest');
+       };
+
     function setPostDates() {
         if ($scope.selectedDateOption == "0") {
             $scope.date_from = self.dateFrom;
@@ -129,12 +133,12 @@ app.controller('statisticsCtrl', function ($scope, GetDataService, updateURL, pa
                         $scope.loading = false;
                     } else {
                         $scope.loading = false;
-                        // $rootScope.showAlert('badRequest');
+                        $rootScope.showAlert('badRequest');
                     }
                 }, function errorCallback(response) {
                     if(response.status != 200) {
                         $scope.loading = false;
-                        // $rootScope.showAlert('badRequest');
+                        $rootScope.showAlert('badRequest');
                     }
                 });
             } else {
@@ -152,12 +156,12 @@ app.controller('statisticsCtrl', function ($scope, GetDataService, updateURL, pa
                         $scope.loading = false;
                     } else {
                         $scope.loading = false;
-                        // $rootScope.showAlert('badRequest');
+                        $rootScope.showAlert('badRequest');
                     }
                 }, function errorCallback(response) {
                     if(response.status != 200) {
                         $scope.loading = false;
-                        // $rootScope.showAlert('badRequest');
+                        $rootScope.showAlert('badRequest');
                     }
                 });
             }
@@ -170,7 +174,6 @@ app.controller('statisticsCtrl', function ($scope, GetDataService, updateURL, pa
             templateUrl: 'AddExpensesModal.html',
         });
         modalInstance.result.then(function (id) {
-            // $scope.initData();
         }, function () {
         });
     };
@@ -222,12 +225,12 @@ app.controller('addExpensesModalInstanceCtrl', function($scope, $uibModalInstanc
                 $scope.loading = false;
             } else {
                 $scope.loading = false;
-                // $rootScope.showAlert('badRequest');
+                $rootScope.showAlert('badRequest');
             }
         }, function errorCallback(response) {
             if(response.status != 200) {
                 $scope.loading = false;
-                // $rootScope.showAlert('badRequest');
+                $rootScope.showAlert('badRequest');
             }
         });
     }
@@ -250,15 +253,15 @@ app.controller('addExpensesModalInstanceCtrl', function($scope, $uibModalInstanc
             if (result.data) {
                 $uibModalInstance.close(1);
                 $scope.loading = false;
-                // $rootScope.showAlert('expensesAddSuccess');
+                $rootScope.showAlert('expensesAddSuccess');
             } else {
                 $scope.loading = false;
-                // $rootScope.showAlert('badRequest');
+                $rootScope.showAlert('badRequest');
             }
         }, function errorCallback(response) {
             if(response.status != 200) {
                 $scope.loading = false;
-                // $rootScope.showAlert('badRequest');
+                $rootScope.showAlert('badRequest');
             }
         });
     };

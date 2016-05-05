@@ -37,7 +37,7 @@ var app = angular.module("avtoplin_app", [
 	'ncy-angular-breadcrumb',
 	'duScroll',
 	'pascalprecht.translate',
-	'chart.js'
+	'chart.js',
 ]).config(function($locationProvider) {
 	$locationProvider.html5Mode(true);
 });
