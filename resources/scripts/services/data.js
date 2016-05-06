@@ -1,4 +1,4 @@
-app.factory("GetDataService", ['$http', 
+app.factory("GetDataService", ['$http',
 	function ($http) {
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
         $http.defaults.transformRequest = function(data) {
@@ -27,28 +27,28 @@ app.factory("GetDataService", ['$http',
         };
         return obj;
     }]);
-    
-    
+
+
 app.factory("getIndexForStatus",
     function() {
         var obj = {};
         obj.getIndex = function(status) {
-            
+
         }
         return obj;
     });
-    
+
  app.factory("converDate",
     function() {
         var obj = {};
         obj.convert = function(date) {
             var arr_string = date.split('-');
-            
-            
+
+
         }
         return obj;
     });
-    
+
 app.factory("updateURL", ['$location',
 	function ($location) {
         var obj = {};
@@ -59,17 +59,17 @@ app.factory("updateURL", ['$location',
         }
         return obj;
     }]);
-    
+
 app.factory("parseGetParams", ['$location',
 	function ($location) {
         var obj1 = {};
         obj1.parse = function() {
             var a = /\+/g;
             var r = /([^&=]+)=?([^&]*)/g;
-            var d = function(s) { 
-                return decodeURIComponent(s.replace(a, '')); 
+            var d = function(s) {
+                return decodeURIComponent(s.replace(a, ''));
             };
-            
+
             var q = $location.url().split('?')[1];
             var obj = {};
             if(q) {
@@ -77,12 +77,12 @@ app.factory("parseGetParams", ['$location',
                     obj[d(e[1])] = d(e[2]);
                 }
             }
-        
+
             return obj;
         }
         return obj1;
     }])
-    
+
 app.factory("parseGetPage", ['$location',
 	function ($location) {
         var obj1 = {};
@@ -104,7 +104,7 @@ app.factory("parseGetPage", ['$location',
         }
         return obj1;
     }])
-    
+
 app.factory("getIndexForStatus",
     function() {
         var obj = {};
@@ -142,7 +142,17 @@ app.factory("getIndexForStatus",
         }
         return obj;
     });
-    
+
+	  app.filter('range', function(){
+	    return function(n) {
+	      var res = [];
+	      for (var i = 0; i < n; i++) {
+	        res.push(i);
+	      }
+	      return res;
+	    };
+	  });
+
     app.factory("notification", [
     function() {
         var alerts = [

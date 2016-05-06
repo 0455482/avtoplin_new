@@ -1,642 +1,195 @@
 <!-- start: DASHBOARD TITLE -->
-<div style="margin-top: 0;" class="main-content ng-scope">
-  <div class="wrap-content container fade-in-up ng-scope" id="container">
-    <section id="page-title" class="padding-top-15 padding-bottom-15">
-      <div class="row">
-        <div class="col-sm-7">
-          <h1 class="mainTitle" translate="dashboard.WELCOME" translate-values="{ appName: app.name }">WELCOME TO CLIP-TWO</h1>
-          <span class="mainDescription">overview &amp; stats </span>
+<div class="ng-scope" ng-controller="dashboardCtrl as dash" ng-init="initData()">
+  <div style="margin-top: 0;" class="main-content ng-scope">
+    <div class="wrap-content container fade-in-up ng-scope" id="container">
+      <section id="page-title" class="padding-top-15 padding-bottom-15">
+        <div class="row">
+          <div class="col-sm-7">
+            <h1 class="mainTitle">DASBOARD</h1>
+            <span class="mainDescription">overview &amp; stats </span>
+          </div>
+          <div class="col-sm-5">
+            <!-- start: MINI STATS WITH SPARKLINE -->
+            <!-- /// controller:  'SparklineCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
+            <!-- end: MINI STATS WITH SPARKLINE -->
+          </div>
         </div>
-        <div class="col-sm-5">
-          <!-- start: MINI STATS WITH SPARKLINE -->
-          <!-- /// controller:  'SparklineCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
-          <!-- end: MINI STATS WITH SPARKLINE -->
-        </div>
-      </div>
-    </section>
-    <!-- end: DASHBOARD TITLE -->
-    <!-- start: FEATURED BOX LINKS -->
-    <div class="container-fluid container-fullw bg-white">
-      <div class="row">
-        <div class="col-md-12">
-    			<h5 class="over-title margin-bottom-15"><span class="text-bold">3D rolling</span> links</h5>
-    			<p>
-    				Enclose your link inside the class <code>.cl-effect-2</code>
-    			</p>
-    			<div class="margin-top-30 margin-bottom-30">
-    				<nav id="cl-effect-2" class="links cl-effect-2">
-    					<a href><span data-hover="Ratatouille">Ratatouille</span></a>
-    					<a href><span data-hover="Lassitude">Lassitude</span></a>
-    					<a href><span data-hover="Murmurous">Murmurous</span></a>
-    					<a href><span data-hover="Palimpsest">Palimpsest</span></a>
-    					<a href><span data-hover="Assemblage">Assemblage</span></a>
-    				</nav>
-    			</div>
-    		</div>
-      </div>
-    </div>
-    <!-- end: FEATURED BOX LINKS -->
-    <!-- start: FIRST SECTION -->
-    <div class="container-fluid container-fullw bg-white">
-  		<div class="row">
-  			<div class="col-md-12">
-  				<h5 class="over-title margin-bottom-15">Togglable <span class="text-bold">Tabs</span></h5>
-  				<p>
-  					Add quick, dynamic tab functionality to transition through panes of content, even via dropdown menus.
-  				</p>
-  				<uib-tabset class="tabbable">
-  					<uib-tab heading="Static title">
-  						<h4>Static content</h4>
-  						<p>
-  							Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent.
-  						</p>
-  						<p>
-  							Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
-  						</p>
-  					</uib-tab>
-  					<uib-tab ng-repeat="tab in statuses" heading="{{tab.title}}" active="tab.active" disabled="tab.disabled">
-  						{{tab.content}}
-  					</uib-tab>
-  					<uib-tab select="alertMe()">
-  						<uib-tab-heading>
-  							<i class="glyphicon glyphicon-bell"></i> Alert!
-  						</uib-tab-heading>
-  						I've got an HTML heading, and a select callback. Pretty cool!
-  					</uib-tab>
-  				</uib-tabset>
-  			</div>
-  		</div>
-  	</div>
-    <!-- <div class="container-fluid container-fullw padding-bottom-10">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="row">
-            <div class="col-md-7 col-lg-8">
-              <div class="panel panel-white no-radius" id="visits">
-                <div class="panel-heading border-light">
-                  <h4 class="panel-title"> Visits </h4>
-                  <ul class="panel-heading-tabs border-light">
-                    <li>
-                      <div class="pull-right">
-                        <div class="btn-group" uib-dropdown is-open="status.isopen">
-                          <a uib-dropdown-toggle ng-disabled="disabled" class="padding-10">
-                            <i class="ti-more-alt "></i>
-                          </a>
-                          <ul class="dropdown-menu dropdown-light" role="menu">
-                            <li>
-                              <a href="#">
-                                Action
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                Another action
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#">
-                                Something else here
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="rate">
-                        <i class="fa fa-caret-up text-primary"></i><span class="value">15</span><span class="percentage">%</span>
-                      </div>
-                    </li>
-                    <li class="panel-tools">
-                      <ct-paneltool tool-refresh="load1"></ct-paneltool>
-                    </li>
-                  </ul>
-                </div>
-                <div uib-collapse="visits" ng-init="visits=false" class="panel-wrapper">
-                  <div class="panel-body">
-                    <!-- /// controller:  'VisitsCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
-                    <!-- <div ng-controller="VisitsCtrl" class="height-350">
-                      <canvas class="tc-chart" tc-chartjs-line chart-options="options" chart-data="data" chart-legend="chart1" width="100%"></canvas>
-                      <div class="margin-top-20">
-                        <div tc-chartjs-legend chart-legend="chart1" class="inline pull-left"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-            <div class="col-md-5 col-lg-4">
-              <div class="panel panel-white no-radius">
-                <div class="panel-heading border-light">
-                  <h4 class="panel-title"> Acquisition </h4>
-                </div>
-                <div class="panel-body">
-                  <h3 class="inline-block no-margin">26</h3> visitors on-line <uib-progressbar value="40" class="progress-xs no-radius" type="success"></uib-progressbar>
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h4 class="no-margin">15</h4>
-                      <uib-progressbar value="80" class="progress-xs no-radius no-margin" type="danger"></uib-progressbar>
-                      Direct
-                    </div>
-                    <div class="col-sm-4">
-                      <h4 class="no-margin">7</h4>
-                      <uib-progressbar value="60" class="progress-xs no-radius no-margin" type="info"></uib-progressbar>
-                      Sites
-                    </div>
-                    <div class="col-sm-4">
-                      <h4 class="no-margin">4</h4>
-                      <uib-progressbar value="40" class="progress-xs no-radius no-margin" type="warning"></uib-progressbar>
-                      Search
-                    </div>
-                  </div>
-                  <div class="row margin-top-30">
-                    <div class="col-xs-4 text-center">
-                      <div class="rate">
-                        <i class="fa fa-caret-up text-green"></i><span class="value">26</span><span class="percentage">%</span>
-                      </div>
-                      Mac OS X
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <div class="rate">
-                        <i class="fa fa-caret-up text-green"></i><span class="value">62</span><span class="percentage">%</span>
-                      </div>
-                      Windows
-                    </div>
-                    <div class="col-xs-4 text-center">
-                      <div class="rate">
-                        <i class="fa fa-caret-down text-red"></i><span class="value">12</span><span class="percentage">%</span>
-                      </div>
-                      Other OS
-                    </div>
-                  </div>
-                  <div class="margin-top-10">
-                    <!-- /// controller:  'SalesCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
-                    <!-- <div ng-controller="SalesCtrl" class="height-180">
-                      <canvas class="tc-chart" tc-chartjs-bar chart-options="options" chart-data="data" chart-legend="chart2"></canvas>
-                      <div tc-chartjs-legend chart-legend="chart2" class="inline pull-left legend-xs"></div>
-                    </div> -->
-                  </div>
-                </div>
-              </div>
+      </section>
+      <!-- end: DASHBOARD TITLE -->
+      <!-- start: FEATURED BOX LINKS -->
+      <div class="container-fluid container-fullw">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="margin-top-30 margin-bottom-30 csstransforms3d">
+              <nav id="cl-effect-2" class="links cl-effect-2">
+                <a ng-repeat="thumbnail in thumbnails" ng-if="(thumbnail.name != 'Arhiv' && thumbnail.name != 'Izbrisano')" href><span data-hover="{{thumbnail.count}}">{{thumbnail.name}}</span></a>
+              </nav>
             </div>
           </div>
         </div>
       </div>
-    </div> -->
-    <!-- end: FIRST SECTION -->
-    <!-- start: SECOND SECTION -->
-    <div class="container-fluid container-fullw bg-white">
-      <div class="row">
-        <div class="col-sm-8">
-          <div class="panel panel-white no-radius">
-            <div class="panel-body">
-              <div class="partition-light-grey padding-15 text-center margin-bottom-20">
-                <h4 class="no-margin">Monthly Statistics</h4>
-                <span class="text-light">based on the major browsers</span>
-              </div>
-              <v-accordion class="vAccordion--default">
-                <!-- add expanded attribute to open first section -->
-                <v-pane expanded>
-                  <v-pane-header>
-                    This Month
-                  </v-pane-header>
-                  <v-pane-content>
-                    <table class="table margin-bottom-0">
-                      <tbody>
-                        <tr>
-                          <td class="center">1</td>
-                          <td>Google Chrome</td>
-                          <td class="center">4909</td>
-                          <td><i class="fa fa-caret-down text-red"></i></td>
-                        </tr>
-                        <tr>
-                          <td class="center">2</td>
-                          <td>Mozilla Firefox</td>
-                          <td class="center">3857</td>
-                          <td><i class="fa fa-caret-up text-green"></i></td>
-                        </tr>
-                        <tr>
-                          <td class="center">3</td>
-                          <td>Safari</td>
-                          <td class="center">1789</td>
-                          <td><i class="fa fa-caret-up text-green"></i></td>
-                        </tr>
-                        <tr>
-                          <td class="center">4</td>
-                          <td>Internet Explorer</td>
-                          <td class="center">612</td>
-                          <td><i class="fa fa-caret-down text-red"></i></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </v-pane-content>
-                </v-pane>
-                <v-pane>
-                  <v-pane-header>
-                    Last Month
-                  </v-pane-header>
-                  <v-pane-content>
-                    <table class="table margin-bottom-0">
-                      <tbody>
-                        <tr>
-                          <td class="center">1</td>
-                          <td>Google Chrome</td>
-                          <td class="center">5228</td>
-                          <td><i class="fa fa-caret-up text-green"></i></td>
-                        </tr>
-                        <tr>
-                          <td class="center">2</td>
-                          <td>Mozilla Firefox</td>
-                          <td class="center">2853</td>
-                          <td><i class="fa fa-caret-up text-green"></i></td>
-                        </tr>
-                        <tr>
-                          <td class="center">3</td>
-                          <td>Safari</td>
-                          <td class="center">1948</td>
-                          <td><i class="fa fa-caret-up text-green"></i></td>
-                        </tr>
-                        <tr>
-                          <td class="center">4</td>
-                          <td>Internet Explorer</td>
-                          <td class="center">456</td>
-                          <td><i class="fa fa-caret-down text-red"></i></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </v-pane-content>
-                </v-pane>
-              </v-accordion>
+      <!-- end: FEATURED BOX LINKS -->
+      <!-- start: FIRST SECTION -->
+      <div class="container-fluid container-fullw bg-white">
+        <div style="margin-bottom: 30px;" class="row">
+          <div class="col-md-6">
+            <h5 class="text-bold margin-top-25 margin-bottom-15">Iskanje po datum</h5>
+            <div class="input-group">
+              <input type="text" class="form-control" ng-change="showOd()" uib-datepicker-popup="yyyy/MM/dd" ng-model="dt"  is-open="startOpened" ng-init="startOpened = false" min-date="'1970-12-31'" max-date="end" ng-required="true" close-text="Close"  ng-click="startOpen()"/>
+              <span class="input-group-addon">to</span>
+              <input type="text" class="form-control" ng-change="showDo()" uib-datepicker-popup="yyyy/MM/dd" ng-model="dm" is-open="endOpened" ng-init="endOpened = false" min-date="start" max-date="maxDate" ng-required="true" close-text="Close"  ng-click="endOpen()" />
             </div>
           </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="panel panel-white no-radius">
-            <div class="panel-heading border-bottom">
-              <h4 class="panel-title">New Users</h4>
-            </div>
-            <div class="panel-body">
-              <!-- /// controller:  'OnotherCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
-              <!-- <div ng-controller="OnotherCtrl">
-                <div class="text-center">
-                  <span class="mini-pie"> <canvas class="tc-chart" tc-chartjs-doughnut chart-options="options" chart-data="data" chart-legend="chart3" width="100"></canvas> <span>{{total}}</span> </span>
-                  <span class="inline text-large no-wrap">Acquisition</span>
-                </div>
-                <div class="margin-top-20 text-center legend-xs">
-                  <div tc-chartjs-legend chart-legend="chart3" class="inline"></div>
-                </div>
-              </div> -->
-            </div>
-            <div class="panel-footer">
-              <div class="clearfix padding-5 space5">
-                <div class="col-xs-4 text-center no-padding">
-                  <div class="border-right border-dark">
-                    <span class="text-bold block text-extra-large">90%</span>
-                    <span class="text-light">Satisfied</span>
-                  </div>
-                </div>
-                <div class="col-xs-4 text-center no-padding">
-                  <div class="border-right border-dark">
-                    <span class="text-bold block text-extra-large">2%</span>
-                    <span class="text-light">Unsatisfied</span>
-                  </div>
-                </div>
-                <div class="col-xs-4 text-center no-padding">
-                  <span class="text-bold block text-extra-large">8%</span>
-                  <span class="text-light">NA</span>
-                </div>
-              </div>
-            </div>
+          <div class="col-md-6">
+            <h5 class="text-bold margin-top-25 margin-bottom-15">Iskanje</h5>
+            <form ng-submit="setSearch(quick_text)">
+              <span class="input-icon input-icon-right">
+                <input type="text" placeholder="Text Field" ng-model="quick_text" id="form-field-17" class="form-control">
+                <i ng-click="" class="fa fa-search"></i>
+              </span>
+              <input type="submit" style="display: none;" />
+            </form>
           </div>
         </div>
-      </div>
-    </div>
-    <!-- end: SECOND SECTION -->
-    <!-- start: THIRD SECTION -->
-    <div class="container-fluid container-fullw padding-bottom-10">
-      <div class="row">
-        <div class="col-sm-8">
-          <div class="panel panel-white no-radius">
-            <div class="panel-heading border-light">
-              <h4 class="panel-title">Users</h4>
-            </div>
-            <div class="panel-body no-padding">
-              <div class="padding-10">
-                <img width="50" height="50" src="assets/images/avatar-1.jpg" class="img-circle pull-left" alt="">
-                <h4 class="no-margin inline-block padding-5">Peter Clark <span class="block text-small text-left">UI Designer</span></h4>
-                <div class="pull-right padding-15">
-                  <span class="text-small text-bold text-green"><i class="fa fa-dot-circle-o"></i> on-line</span>
-                </div>
-              </div>
-              <div class="clearfix padding-5 space5">
-                <div class="col-xs-4 text-center no-padding">
-                  <div class="border-right border-dark">
-                    <a class="text-dark" href="#">
-                      <i class="fa fa-heart-o text-red"></i> 250
-                    </a>
-                  </div>
-                </div>
-                <div class="col-xs-4 text-center no-padding">
-                  <div class="border-right border-dark">
-                    <a class="text-dark" href="#">
-                      <i class="fa fa-bookmark-o text-green"></i> 20
-                    </a>
-                  </div>
-                </div>
-                <div class="col-xs-4 text-center no-padding">
-                  <a class="text-dark" href="#"><i class="fa fa-comment-o text-azure"></i> 544</a>
-                </div>
-              </div>
-              <uib-tabset class="tabbable no-padding no-margin">
-                <uib-tab heading="Followers" class="padding-top-5 padding-left-5">
-                  <div class="panel-scroll height-200" perfect-scrollbar wheel-propagation="false" suppress-scroll-x="true">
-                    <table class="table no-margin">
+        <div class="row">
+          <div class="col-md-12">
+            <uib-tabset class="tabbable">
+              <uib-tab ng-repeat="status in statuses" ng-model="tab" heading="{{status.name}}"
+              active="status.active" disabled="tab.disabled"
+              ng-click="$parent.status = status.name; $parent.tab_status_id = status.id; $parent.color = status.color; switchTab(status.name);">
+              <div class="container-fluid container-fullw bg-white">
+                <div class="row">
+                  <div class="col-md-12">
+                    <table class="table table-hover" id="sample-table-1">
+                      <thead>
+                        <tr ng-if="(tab_status_id != 5 && tab_status_id != 6) ? true : false">
+                          <th class="center">
+                            <input class="list_check" type="checkbox" ng-model="self.checkedAll" ng-click="checkAll(self.checkedAll)">
+                          </th>
+                          <th>LEAD ID</th>
+                          <th class="hidden-xs">STRANKA</th>
+                          <th>TELEFON</th>
+                          <th class="hidden-xs">MODEL AVTA</th>
+                          <th class="hidden-xs">DATUM VNOSA</th>
+                          <th>OPOMBE</th>
+                          <th class="hidden-xs">PREGLED</th>
+                          <th></th>
+                        </tr>
+                        <tr ng-if="(tab_status_id == 5 || tab_status_id == 6) ? true : false">
+                          <th class="center">
+                            <input class="list_check" type="checkbox" ng-model="self.checkedAll" ng-click="checkAll(self.checkedAll)">
+                          </th>
+                          <th>INVOICE ID</th>
+                          <th class="hidden-xs">ŠT. NAROČIL</th>
+                          <th>CENA</th>
+                          <th class="hidden-xs">DATUM VNOSA</th>
+                          <th class="hidden-xs">PREGLED</th>
+                          <th></th>
+                        </tr>
+                      </thead>
                       <tbody>
-                        <tr>
-                          <td class="center"><img alt="image" class="img-circle" src="assets/images/avatar-1-small.jpg"></td>
-                          <td><span class="text-small block text-light">UI Designer</span><span>Peter Clark</span></td>
+                        <tr ng-if="(tab_status_id != 5 && tab_status_id != 6) ? true : false" ng-repeat="row in rows track by $index">
                           <td class="center">
-                            <div class="cl-effect-13">
-                              <a href>
-                                view more
-                              </a>
+                            <input class="list_check" type="checkbox" ng-model="row.selected">
+                          </td>
+                          <td class="center">{{row.id}}</td>
+                          <td class="hidden-xs">{{row.customer}}</td>
+                          <td>{{row.telephone}}</td>
+                          <td>
+                            {{row.car_model}}
+                          </td>
+                          <td class="hidden-xs">{{row.date_created | date:'dd/MM/yyyy'}}</td>
+                          <td class="hidden-xs">{{row.customer_profile}}</td>
+                          <td class="center">
+                            <div class="visible-md visible-lg hidden-sm hidden-xs">
+                              <a href="<?php echo base_url(); ?>index.php/order_details?order_id={{row.id}}" target="_self" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Edit"><i class="fa fa-search-plus"></i></a>
+                            </div>
+                            <div class="visible-xs visible-sm hidden-md hidden-lg">
+                              <div class="btn-group" uib-dropdown is-open="status.isopen">
+                                <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" uib-dropdown-toggle>
+                                  <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                  <li>
+                                    <a href="#">
+                                      Edit
+                                    </a>
+                                  </li>
+                                </ul>
+                              </div>
                             </div></td>
                           </tr>
-                          <tr>
-                            <td class="center"><img alt="image" class="img-circle" src="assets/images/avatar-2-small.jpg"></td>
-                            <td><span class="text-small block text-light">Content Designer</span><span>Nicole Bell</span></td>
+
+                          <tr ng-if="(tab_status_id == 5 || tab_status_id == 6) ? true : false" ng-repeat="row in rows track by $index">
                             <td class="center">
-                              <div class="cl-effect-13">
-                                <a href>
-                                  view more
-                                </a>
+                              <input class="list_check" type="checkbox" ng-model="row.selected">
+                            </td>
+                            <td class="center">{{row.invoice_num}}</td>
+                            <td class="hidden-xs">{{row.num_of_orders}}</td>
+                            <td>{{row.price}}</td>
+                            <td>
+                              {{row.date_created | date}}
+                            </td>
+                            <td class="center">
+                              <div class="visible-md visible-lg hidden-sm hidden-xs">
+                                <a href="<?php echo base_url(); ?>index.php/order_details?order_id={{row.id}}" target="_self" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Edit"><i class="fa fa-search-plus"></i></a>
+                              </div>
+                              <div class="visible-xs visible-sm hidden-md hidden-lg">
+                                <div class="btn-group" uib-dropdown is-open="status.isopen">
+                                  <button type="button" class="btn btn-primary btn-o btn-sm dropdown-toggle" uib-dropdown-toggle>
+                                    <i class="fa fa-cog"></i>&nbsp;<span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu pull-right dropdown-light" role="menu">
+                                    <li>
+                                      <a href="#">
+                                        Edit
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
                               </div></td>
                             </tr>
-                            <tr>
-                              <td class="center"><img alt="image" class="img-circle" src="assets/images/avatar-3-small.jpg"></td>
-                              <td><span class="text-small block text-light">Visual Designer</span><span>Steven Thompson</span></td>
-                              <td class="center">
-                                <div class="cl-effect-13">
-                                  <a href>
-                                    view more
-                                  </a>
-                                </div></td>
-                              </tr>
-                              <tr>
-                                <td class="center"><img alt="image" class="img-circle" src="assets/images/avatar-5-small.jpg"></td>
-                                <td><span class="text-small block text-light">Senior Designer</span><span>Kenneth Ross</span></td>
-                                <td class="center">
-                                  <div class="cl-effect-13">
-                                    <a href>
-                                      view more
-                                    </a>
-                                  </div></td>
-                                </tr>
-                                <tr>
-                                  <td class="center"><img alt="image" class="img-circle" src="assets/images/avatar-4-small.jpg"></td>
-                                  <td><span class="text-small block text-light">Web Editor</span><span>Ella Patterson</span></td>
-                                  <td class="center">
-                                    <div class="cl-effect-13">
-                                      <a href>
-                                        view more
-                                      </a>
-                                    </div></td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </uib-tab>
-                          <uib-tab heading="Following" class="padding-top-5">
-                            <div class="panel-scroll height-200" perfect-scrollbar wheel-propagation="false" suppress-scroll-x="true">
-                              <table class="table no-margin">
-                                <tbody>
-                                  <tr>
-                                    <td class="center"><img alt="image" class="img-circle" src="assets/images/avatar-3-small.jpg"></td>
-                                    <td><span class="text-small block text-light">Visual Designer</span><span>Steven Thompson</span></td>
-                                    <td class="center">
-                                      <div class="cl-effect-13">
-                                        <a href>
-                                          view more
-                                        </a>
-                                      </div></td>
-                                    </tr>
-                                    <tr>
-                                      <td class="center"><img alt="image" class="img-circle" src="assets/images/avatar-5-small.jpg"></td>
-                                      <td><span class="text-small block text-light">Senior Designer</span><span>Kenneth Ross</span></td>
-                                      <td class="center">
-                                        <div class="cl-effect-13">
-                                          <a href>
-                                            view more
-                                          </a>
-                                        </div></td>
-                                      </tr>
-                                      <tr>
-                                        <td class="center"><img alt="image" class="img-circle" src="assets/images/avatar-4-small.jpg"></td>
-                                        <td><span class="text-small block text-light">Web Editor</span><span>Ella Patterson</span></td>
-                                        <td class="center">
-                                          <div class="cl-effect-13">
-                                            <a href>
-                                              view more
-                                            </a>
-                                          </div></td>
-                                        </tr>
-                                      </tbody>
-                                    </table>
-                                  </div>
-                                </uib-tab>
-                              </uib-tabset>
-                            </div>
+                          </tbody>
+                        </table>
+                        <div style="display: inline-flex">
+                          <ul class="pagination margin-bottom-10">
+                            <li>
+                              <a href="#" ng-click="pagination.prevPage()"> <i class="ti-arrow-left"></i> </a>
+                            </li>
+                            <li>
+                              <a href="#" ng-click="pagination.nextPage()"> <i class="ti-arrow-right"></i> </a>
+                            </li>
+                          </ul>
+                          <div style="margin-top: 25px; margin-left: 10px;">
+                            <span class="pagination_counter">
+                              <span>
+                                <span class="from">
+                                  {{pagination.start_item}}<!-- First item on page number -->
+                                </span>
+                                <span>-</span>
+                                <span class="to">
+                                  {{pagination.numPerPage}}<!-- Last item on page number -->
+                                </span>
+                              </span>
+                              <span>of</span>
+                              <span class="total">
+                                {{pagination.all_data}}
+                                <!-- Total items number goes here -->
+                              </span>
+                            </span>
                           </div>
-                        </div>
-                        <div class="col-sm-4">
-                          <div class="panel panel-white no-radius">
-                            <div class="panel-heading border-bottom">
-                              <h4 class="panel-title">Specialization</h4>
-                            </div>
-                            <div class="panel-body">
-                              <!-- /// controller:  'LastCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
-                              <!-- <div ng-controller="LastCtrl">
-                                <canvas class="tc-chart" tc-chartjs-radar chart-options="options" chart-data="data" chart-legend="chart4"></canvas>
-                                <div class="margin-top-20 padding-bottom-5">
-                                  <div tc-chartjs-legend chart-legend="chart4" class="inline"></div>
-                                </div>
-                              </div> -->
-                            </div>
-                            <div class="panel-footer">
-                              <div class="clearfix padding-5 space5">
-                                <div class="col-xs-4 text-center no-padding">
-                                  <div class="border-right border-dark">
-                                    <span class="text-bold block text-extra-large">90%</span>
-                                    <span class="text-light">Satisfied</span>
-                                  </div>
-                                </div>
-                                <div class="col-xs-4 text-center no-padding">
-                                  <div class="border-right border-dark">
-                                    <span class="text-bold block text-extra-large">2%</span>
-                                    <span class="text-light">Unsatisfied</span>
-                                  </div>
-                                </div>
-                                <div class="col-xs-4 text-center no-padding">
-                                  <span class="text-bold block text-extra-large">8%</span>
-                                  <span class="text-light">NA</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- end: THIRD SECTION -->
-                    <!-- start: FOURTH SECTION -->
-                    <div class="container-fluid container-fullw bg-white">
-                      <div class="row">
-                        <div class="col-xs-12 col-sm-4">
-                          <div class="row">
-                            <!-- /// controller:  'SparklineCtrl' -  localtion: assets/js/controllers/dashboardCtrl.js /// -->
-                            <!-- <div ng-controller="SparklineCtrl">
-                              <div class="col-md-12">
-                                <div class="panel panel-white no-radius">
-                                  <div class="panel-body padding-20 text-center">
-                                    <div class="space10">
-                                      <h5 class="text-dark no-margin">Today</h5>
-                                      <h2 class="no-margin"><small>$</small>1,450</h2>
-                                      <span class="badge badge-success margin-top-10">253 Sales</span>
-                                    </div>
-                                    <div class="sparkline space10">
-                                      <span jq-sparkline ng-model="sales" type="line" width="80%" height="47px" line-color="#8e8e93" highlight-line-color="#c2c2c5" highlight-spot-color="#CE4641" max-spot-color="#5CB85C" min-spot-color="#D9534F" spot-radius="4" fill-color="transparent" resize="true"></span>
-                                    </div>
-                                    <span class="text-white-transparent"><i class="fa fa-clock-o"></i> 1 hour ago</span>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-md-12">
-                                <div class="panel panel-white no-radius">
-                                  <div class="panel-body padding-20 text-center">
-                                    <div class="space10">
-                                      <h5 class="text-dark no-margin">Today</h5>
-                                      <h2 class="no-margin"><small>$</small>1,450</h2>
-                                      <span class="badge badge-danger margin-top-10">253 Sales</span>
-                                    </div>
-                                    <div class="sparkline space10">
-                                      <span jq-sparkline ng-model="referrals" type="line" width="80%" height="47px" line-color="#8e8e93" highlight-line-color="#c2c2c5" highlight-spot-color="#CE4641" max-spot-color="#5CB85C" min-spot-color="#D9534F" spot-radius="4" fill-color="transparent" resize="true"></span>
-                                    </div>
-                                    <span class="text-white-transparent"><i class="fa fa-clock-o"></i> 1 hour ago</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div> -->
-                          </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-4">
-                          <div class="panel panel-white no-radius">
-                            <div class="panel-heading border-bottom">
-                              <h4 class="panel-title">Activities</h4>
-                            </div>
-                            <div class="panel-body">
-                              <ul class="timeline-xs margin-top-15 margin-bottom-15">
-                                <li class="timeline-item success">
-                                  <div class="margin-left-15">
-                                    <div class="text-muted text-small">
-                                      2 minutes ago
-                                    </div>
-                                    <p>
-                                      <a class="text-info" href>
-                                        Steven
-                                      </a>
-                                      has completed his account.
-                                    </p>
-                                  </div>
-                                </li>
-                                <li class="timeline-item">
-                                  <div class="margin-left-15">
-                                    <div class="text-muted text-small">
-                                      12:30
-                                    </div>
-                                    <p>
-                                      Staff Meeting
-                                    </p>
-                                  </div>
-                                </li>
-                                <li class="timeline-item danger">
-                                  <div class="margin-left-15">
-                                    <div class="text-muted text-small">
-                                      11:11
-                                    </div>
-                                    <p>
-                                      Completed new layout.
-                                    </p>
-                                  </div>
-                                </li>
-                                <li class="timeline-item info">
-                                  <div class="margin-left-15">
-                                    <div class="text-muted text-small">
-                                      Thu, 12 Jun
-                                    </div>
-                                    <p>
-                                      Contacted
-                                      <a class="text-info" href>
-                                        Microsoft
-                                      </a>
-                                      for license upgrades.
-                                    </p>
-                                  </div>
-                                </li>
-                                <li class="timeline-item">
-                                  <div class="margin-left-15">
-                                    <div class="text-muted text-small">
-                                      Tue, 10 Jun
-                                    </div>
-                                    <p>
-                                      Started development new site
-                                    </p>
-                                  </div>
-                                </li>
-                                <li class="timeline-item">
-                                  <div class="margin-left-15">
-                                    <div class="text-muted text-small">
-                                      Sun, 11 Apr
-                                    </div>
-                                    <p>
-                                      Lunch with
-                                      <a class="text-info" href>
-                                        Nicole
-                                      </a>
-                                      .
-                                    </p>
-                                  </div>
-                                </li>
-                                <li class="timeline-item warning">
-                                  <div class="margin-left-15">
-                                    <div class="text-muted text-small">
-                                      Wed, 25 Mar
-                                    </div>
-                                    <p>
-                                      server Maintenance.
-                                    </p>
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-4">
-                          <!-- /// controller:  'ChatCtrl' -  localtion: assets/js/controllers/chatCtrl.js /// -->
-                          <!-- <div ng-controller="ChatCtrl">
-                            <div class="panel panel-white no-radius">
-                              <div class="panel-heading border-bottom">
-                                <h4 class="panel-title">Chat</h4>
-                              </div>
-                              <div class="panel-body no-padding">
-                                <div class="panel-scroll height-330" id="chatBox" perfect-scrollbar wheel-propagation="false" suppress-scroll-x="true">
-                                  <clip-chat messages="chat" id-self="selfIdUser" id-other="otherIdUser"></clip-chat>
-                                </div>
-                              </div>
-                              <chat-submit submit-function="sendMessage" ng-model="chatMessage" scroll-element="#chatBox"></chat-submit>
-                            </div>
-                          </div> -->
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <!-- end: FOURTH SECTION -->
+                </uib-tab>
+                <!-- <uib-tab heading="Vse">
+
+              </uib-tab> -->
+            </uib-tabset>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
