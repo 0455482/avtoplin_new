@@ -44,3 +44,13 @@ div.loading_fixed_wrap .loading_text, div.loading_absolute_wrap .loading_text {
     font-size: 18px;
     font-weight: bold;
 }
+
+.margin-top--210 {
+    margin-top: -210px !important;
+}
+
+@media (max-width: 767px) {
+    .margin-top--210 {
+        margin-top: -0px !important;
+    }
+}

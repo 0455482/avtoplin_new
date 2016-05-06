@@ -256,7 +256,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6" style="margin-top: -210px !important;">
+                            <div class="col-sm-6 margin-top--210">
                                 <div class="panel panel-white no-radius">
                                     <div class="panel-heading border-light">
                                         <h4 class="panel-title">POPUSTI</h4>
