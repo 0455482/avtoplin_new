@@ -14,8 +14,9 @@ app.run(function($rootScope, notification) {
 
 app.controller('dashboardCtrl', function ($scope, $http, $location, $uibModal, $log, GetDataService, updateURL, parseGetParams, getIndexForStatus, $rootScope) {
     //defaults on init
+    var self = this;
     $scope.tab = 'Neobdelano';
-    $scope.statuses = '';
+    $scope.statuses = [];
     $scope.thumbnails = '';
     $scope.colorRows = {};
     $scope.curDateOd = {};
@@ -29,7 +30,6 @@ app.controller('dashboardCtrl', function ($scope, $http, $location, $uibModal, $
     var getParams = {};
     $scope.selectedOrdersCount = 0;
     $scope.selectedOrders = {};
-
     //var ctrl = this;
     //$scope.redirectToStatus = null;
 
@@ -37,12 +37,17 @@ app.controller('dashboardCtrl', function ($scope, $http, $location, $uibModal, $
     //makes call to api for init data
     //return page data
     $scope.initData = function() {
+      getParams = parseGetParams.parse();
+      $scope.tab_status_id = getIndexForStatus.getIndex(getParams.filter);
             GetDataService.get('Dashboard/init').then(function(result) {
             $scope.statuses = result.data.statuses;
-            console.log($scope.statuses);
+            if($scope.tab_status_id != 9) {
+              $scope.statuses[$scope.tab_status_id - 1].active = true;
+            }
             ($scope.tab_status_id > 8) ? $scope.color = '#0466A7' : $scope.color = $scope.statuses[$scope.tab_status_id - 1].color;
             $rootScope.statuses = result.data.statuses;
             $scope.thumbnails = result.data.box_stats;
+
         }, function errorCallback(response) {
             if(	response.status != 200) {
                 $scope.loading = false;
@@ -52,7 +57,6 @@ app.controller('dashboardCtrl', function ($scope, $http, $location, $uibModal, $
         getParams = parseGetParams.parse();
         getParams.filter ? getParams.filter : getParams.filter = $scope.tab;
         $scope.tab = getParams.filter;
-        $scope.tab_status_id = getIndexForStatus.getIndex(getParams.filter);
         $scope.dt = getParams.dateFrom ? new Date(getParams.dateFrom * 1) : '';
         $scope.dm = getParams.dateTo ? new Date(getParams.dateTo * 1) : '';
         $scope.quick_text = getParams.quick_text;
@@ -98,7 +102,7 @@ app.controller('dashboardCtrl', function ($scope, $http, $location, $uibModal, $
     $scope.switchTab = function(tab_val) {
         $scope.loading = true;
         $scope.tab = tab_val;
-        $scope.checkedAll = false;
+        self.checkedAll = false;
         $scope.pagination.start_item = 1;
         $scope.pagination.numPerPage = 20;
         getParams.filter = tab_val;
@@ -279,6 +283,14 @@ app.controller('dashboardCtrl', function ($scope, $http, $location, $uibModal, $
         }
     }
 
+    $scope.startOpen = function() {
+      $scope.startOpened = true;
+    }
+
+    $scope.endOpen = function() {
+      $scope.endOpened = true;
+    }
+
     //function that makes call to api,
     //post date_from, date_to, quick_text and status
     //gets table data count for the above parameters
@@ -293,6 +305,12 @@ app.controller('dashboardCtrl', function ($scope, $http, $location, $uibModal, $
             }).then(function(result) {
                 if(result.data) {
                     $scope.pagination.all_data = result.data;
+                    $scope.pagination.num_of_pages = parseInt($scope.pagination.all_data / 20, 10);
+                    if($scope.pagination.all_data % 20 > 0) {
+                      $scope.pagination.num_of_pages++;
+                      //$scope.pagination.num_of_pages = new Array($scope.pagination.num_of_pages);
+                    }
+                    //console.log($scope.pagination.num_of_pages);
                     if($scope.pagination.all_data <= 20) {
                         $scope.pagination.numPerPage = result.data;
                     }
@@ -410,9 +428,9 @@ app.controller('dashboardCtrl', function ($scope, $http, $location, $uibModal, $
     }
 
     // checkes all checkboxes
-    $scope.checkAll = function() {
+    $scope.checkAll = function(he) {
         angular.forEach($scope.rows, function(row){
-            row.selected = $scope.checkedAll;
+            row.selected = he;
         })
     }
 
