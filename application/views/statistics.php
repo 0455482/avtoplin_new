@@ -188,7 +188,7 @@
                 Stroške
             </label>
             <div class="input-group">
-                <span class="input-group-addon">€</span>
+                <span class="input-group-addon"> <i class="fa fa-eur"></i> </span>
                 <input type="text" ng-model="expenses" ng-required="true" ng-pattern="/^[0-9]+([,.][0-9]+)?$/" class="form-control">
             </div>
         </div>

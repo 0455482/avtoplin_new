@@ -28,9 +28,9 @@
                                 <thead>
                                     <tr>
                                         <th class="center">#</th>
-                                        <th class="hidden-xs">Uborabniško ime</th>
-                                        <th class="hidden-xs">Tip</th>
-                                        <th class="hidden-xs">Active / Inactive</th>
+                                        <th class="left">Uborabniško ime</th>
+                                        <th class="left">Tip</th>
+                                        <th class="left">Active / Inactive</th>
                                         <th class="hidden-xs">Datum ustvarjanja</th>
                                         <th ng-show="user_type"></th>
                                     </tr>
@@ -38,9 +38,9 @@
                                 <tbody>
                                     <tr ng-repeat="user in users track by $index">
                                         <td class="center">{{$index + 1}}</td>
-                                        <td class="hidden-xs">{{user.username}}</td>
-                                        <td>{{user.type}}</td>
-                                        <td>{{(user.active == 1) ? 'Active' : 'Inactive'}}</td>
+                                        <td class="left">{{user.username}}</td>
+                                        <td class="left">{{user.type}}</td>
+                                        <td class="left">{{(user.active == 1) ? 'Active' : 'Inactive'}}</td>
                                         <td class="hidden-xs">{{user.date_created}}</td>
                                         <td class="center" ng-show="user_type" ng-click="showAdvanced(user)">
                                             <div class="visible-md visible-lg hidden-sm hidden-xs">
@@ -64,15 +64,15 @@
                                 <thead>
                                     <tr>
                                         <th class="center">#</th>
-                                        <th class="hidden-xs">Ime</th>
-                                        <th class="hidden-xs">Barva</th>
+                                        <th class="left">Ime</th>
+                                        <th class="left">Barva</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="status in statuses">
                                         <td class="center">{{status.id}}</td>
-                                        <td class="hidden-xs">{{status.name}}</td>
+                                        <td class="left">{{status.name}}</td>
                                         <td>
                                             <div class="flex order_color" style="float:left; background-color:{{status.color}}">
                                                 <span></span>
@@ -80,7 +80,7 @@
                                         </td>
                                         <td class="center" ng-click="showColorsModal(status)">
                                             <div class="visible-md visible-lg hidden-sm hidden-xs">
-                                                <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Spremeni barvo"><i class="fa fa-pencil"></i></a>
+                                                <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Spremeni barvo"><i class="fa fa-eyedropper"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -102,18 +102,18 @@
                                 <thead>
                                     <tr>
                                         <th class="center">#</th>
-                                        <th class="hidden-xs">Naslov</th>
-                                        <th class="hidden-xs">Vsebina</th>
-                                        <th class="hidden-xs">Active / Inactive</th>
+                                        <th class="left">Naslov</th>
+                                        <th class="left">Vsebina</th>
+                                        <th class="left">Active / Inactive</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="sm in sms track by $index">
                                         <td class="center">{{$index + 1}}</td>
-                                        <td class="hidden-xs">{{sm.name}}</td>
-                                        <td>{{sm.text}}</td>
-                                        <td>{{(sm.active == 1) ? 'Active' : 'Inactive'}}</td>
+                                        <td class="left">{{sm.name}}</td>
+                                        <td class="left">{{sm.text}}</td>
+                                        <td class="left">{{(sm.active == 1) ? 'Active' : 'Inactive'}}</td>
                                         <td class="center" ng-click="showEditSMSModal(sm.id)">
                                             <div class="visible-md visible-lg hidden-sm hidden-xs">
                                                 <a href="#" class="btn btn-transparent btn-xs" tooltip-placement="top" uib-tooltip="Uredi"><i class="fa fa-pencil"></i></a>
@@ -133,19 +133,19 @@
                                 <thead>
                                     <tr>
                                         <th class="center">#</th>
-                                        <th class="hidden-xs">Uporabniško ime</th>
+                                        <th class="left">Uporabniško ime</th>
                                         <th class="hidden-xs">Datum</th>
-                                        <th class="hidden-xs">Telefonska številka</th>
+                                        <th class="left">Telefonska številka</th>
                                         <th class="hidden-xs">Tekst</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="sms in smss track by $index">
                                         <td class="center">{{$index + 1}}</td>
-                                        <td class="hidden-xs">{{sms.customer}}</td>
-                                        <td>{{sms.date_sent}}</td>
-                                        <td>{{sms.telephone}}</td>
-                                        <td>{{sms.text}}</td>
+                                        <td class="left">{{sms.customer}}</td>
+                                        <td class="hidden-xs">{{sms.date_sent}}</td>
+                                        <td class="left">{{sms.telephone}}</td>
+                                        <td class="hidden-xs">{{sms.text}}</td>
                                     </tr>
                                 </tbody>
                             </table>
